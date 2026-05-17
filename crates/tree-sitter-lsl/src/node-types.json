@@ -2960,6 +2960,11 @@
     "named": false
   },
   {
+    "type": "preproc_directive",
+    "named": true,
+    "extra": true
+  },
+  {
     "type": "quaternion",
     "named": false
   },

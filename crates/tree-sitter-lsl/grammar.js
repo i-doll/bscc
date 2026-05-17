@@ -36,7 +36,12 @@ const BUILTIN_TYPES = [
 module.exports = grammar({
   name: 'lsl',
 
-  extras: $ => [/[\s\r\n]/, $.line_comment, $.block_comment],
+  extras: $ => [
+    /[\s\r\n]/,
+    $.line_comment,
+    $.block_comment,
+    $.preproc_directive,
+  ],
 
   word: $ => $.identifier,
 
@@ -299,6 +304,20 @@ module.exports = grammar({
       '/*',
       /[^*]*\*+([^/*][^*]*\*+)*/,
       '/',
+    )),
+
+    // Firestorm / OSSL preprocessor extension. Parsed as an opaque token from
+    // `#` to end of line, with `\`-newline allowed as a line continuation so
+    // long #define bodies don't break parsing. Recognized directives in the
+    // ecosystem: include, define, undef, if, ifdef, ifndef, elif, else,
+    // endif, pragma, error, warning. We don't structure them further; tools
+    // can re-parse the captured text if they want more detail.
+    preproc_directive: _ => token(seq(
+      '#',
+      repeat(choice(
+        /[^\n\\]/,
+        seq('\\', /[\r\n]/),
+      )),
     )),
   },
 });

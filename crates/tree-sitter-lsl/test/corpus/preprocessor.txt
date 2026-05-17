@@ -1,0 +1,133 @@
+==================
+Include directive
+==================
+
+#include "common.lsl"
+
+default {
+    state_entry() {
+        llSay(0, "ready");
+    }
+}
+
+---
+
+(source_file
+  (preproc_directive)
+  (default_state
+    (event_handler
+      name: (identifier)
+      body: (block
+        (expression_statement
+          (call_expression
+            function: (identifier)
+            (argument_list
+              (integer_literal)
+              (string_literal))))))))
+
+==================
+Define and ifdef
+==================
+
+#define CHANNEL 42
+#define DEBUG
+
+default {
+    state_entry() {
+#ifdef DEBUG
+        llSay(0, "debug build");
+#endif
+        llSay(CHANNEL, "ready");
+    }
+}
+
+---
+
+(source_file
+  (preproc_directive)
+  (preproc_directive)
+  (default_state
+    (event_handler
+      name: (identifier)
+      body: (block
+        (preproc_directive)
+        (expression_statement
+          (call_expression
+            function: (identifier)
+            (argument_list
+              (integer_literal)
+              (string_literal))))
+        (preproc_directive)
+        (expression_statement
+          (call_expression
+            function: (identifier)
+            (argument_list
+              (identifier)
+              (string_literal))))))))
+
+==================
+Conditional compilation block
+==================
+
+#if DEBUG
+#define LOG_LEVEL 3
+#elif TRACE
+#define LOG_LEVEL 5
+#else
+#define LOG_LEVEL 0
+#endif
+
+default {
+    state_entry() {
+        llSay(LOG_LEVEL, "hi");
+    }
+}
+
+---
+
+(source_file
+  (preproc_directive)
+  (preproc_directive)
+  (preproc_directive)
+  (preproc_directive)
+  (preproc_directive)
+  (preproc_directive)
+  (preproc_directive)
+  (default_state
+    (event_handler
+      name: (identifier)
+      body: (block
+        (expression_statement
+          (call_expression
+            function: (identifier)
+            (argument_list
+              (identifier)
+              (string_literal))))))))
+
+==================
+Define with line continuation
+==================
+
+#define LONG_MACRO \
+    very_long_thing()
+
+default {
+    state_entry() {
+        llSay(0, "ok");
+    }
+}
+
+---
+
+(source_file
+  (preproc_directive)
+  (default_state
+    (event_handler
+      name: (identifier)
+      body: (block
+        (expression_statement
+          (call_expression
+            function: (identifier)
+            (argument_list
+              (integer_literal)
+              (string_literal))))))))
