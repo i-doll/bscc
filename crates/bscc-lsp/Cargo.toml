@@ -24,6 +24,7 @@ bscc-lang-go = { path = "../bscc-lang-go" }
 bscc-lang-c = { path = "../bscc-lang-c" }
 bscc-lang-cpp = { path = "../bscc-lang-cpp" }
 bscc-lang-java = { path = "../bscc-lang-java" }
+bscc-lang-lsl = { path = "../bscc-lang-lsl" }
 anyhow.workspace = true
 tower-lsp.workspace = true
 tokio.workspace = true

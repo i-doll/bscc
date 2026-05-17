@@ -13,6 +13,7 @@ fn build_full_registry() -> bscc_core::Registry {
     bscc_lang_c::register(&mut r);
     bscc_lang_cpp::register(&mut r);
     bscc_lang_java::register(&mut r);
+    bscc_lang_lsl::register(&mut r);
     r
 }
 
@@ -34,6 +35,7 @@ fn tree_sitter_tier_languages_resolve() {
         ("c", "C"),
         ("cpp", "C++"),
         ("java", "Java"),
+        ("lsl", "LSL"),
     ] {
         let entry = r
             .lookup_by_extension(ext)

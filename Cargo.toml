@@ -12,6 +12,7 @@ members = [
     "crates/bscc-lang-cpp",
     "crates/bscc-lang-java",
     "crates/tree-sitter-lsl",
+    "crates/bscc-lang-lsl",
     "crates/bscc-git",
     "crates/bscc-lsp",
     "crates/bscc-export",

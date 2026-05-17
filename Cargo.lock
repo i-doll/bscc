@@ -151,6 +151,7 @@ dependencies = [
  "bscc-lang-cpp",
  "bscc-lang-go",
  "bscc-lang-java",
+ "bscc-lang-lsl",
  "bscc-lang-python",
  "bscc-lang-rust",
  "bscc-lang-typescript",
@@ -239,6 +240,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "bscc-lang-lsl"
+version = "0.0.1"
+dependencies = [
+ "bscc-ast-tier",
+ "bscc-core",
+ "tree-sitter",
+ "tree-sitter-lsl",
+]
+
+[[package]]
 name = "bscc-lang-python"
 version = "0.0.1"
 dependencies = [
@@ -278,6 +289,7 @@ dependencies = [
  "bscc-lang-cpp",
  "bscc-lang-go",
  "bscc-lang-java",
+ "bscc-lang-lsl",
  "bscc-lang-python",
  "bscc-lang-rust",
  "bscc-lang-typescript",

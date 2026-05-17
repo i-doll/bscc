@@ -8,5 +8,6 @@ fn main() -> anyhow::Result<()> {
     bscc_lang_c::register(&mut registry);
     bscc_lang_cpp::register(&mut registry);
     bscc_lang_java::register(&mut registry);
+    bscc_lang_lsl::register(&mut registry);
     bscc_lsp::run(registry, bscc_lsp::Thresholds::default())
 }
