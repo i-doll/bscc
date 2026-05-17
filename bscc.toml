@@ -1,0 +1,9 @@
+# Example bscc.toml. `bscc` searches from the working directory upward for
+# the nearest `bscc.toml` and uses defaults for anything not set.
+
+[thresholds]
+cyclomatic_max = 10
+longest_function_lines = 100
+
+[git]
+window_days = 90

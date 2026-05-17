@@ -2,6 +2,7 @@ use anyhow::Result;
 use clap::{Parser, Subcommand};
 
 mod cmd;
+mod config;
 
 #[derive(Parser)]
 #[command(name = "bscc", version, about = "Better scc: a code-metrics tool", long_about = None)]
@@ -20,16 +21,22 @@ enum Command {
     Explain(cmd::explain::ExplainArgs),
     /// List registered languages and which tier they use.
     Languages,
+    /// Run the bscc LSP server over stdio (alias for the `bscc-lsp` binary).
+    Lsp,
 }
 
 fn main() -> Result<()> {
     let cli = Cli::parse();
     let registry = build_registry();
+    let cfg = config::load(std::path::Path::new("."))
+        .map(|(_, c)| c)
+        .unwrap_or_default();
     match cli.command {
-        Command::Count(args) => cmd::count::run(&registry, args),
-        Command::Hotspots(args) => cmd::hotspots::run(&registry, args),
+        Command::Count(args) => cmd::count::run(&registry, args, &cfg),
+        Command::Hotspots(args) => cmd::hotspots::run(&registry, args, &cfg),
         Command::Explain(args) => cmd::explain::run(&registry, &args),
         Command::Languages => cmd::languages::run(&registry),
+        Command::Lsp => cmd::lsp::run(&registry, &cfg),
     }
 }
 

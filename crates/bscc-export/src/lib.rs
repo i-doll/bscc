@@ -2,11 +2,13 @@
 //! HTML in M5.
 
 pub mod csv;
+pub mod html;
 pub mod json;
 pub mod sarif;
 pub mod table;
 
 pub use csv::CsvExporter;
+pub use html::HtmlExporter;
 pub use json::JsonExporter;
 pub use sarif::{SarifExporter, SarifThresholds};
 pub use table::TableExporter;

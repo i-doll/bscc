@@ -23,7 +23,7 @@ pub struct CountArgs {
     pub threads: usize,
 }
 
-pub fn run(registry: &Registry, args: CountArgs) -> Result<()> {
+pub fn run(registry: &Registry, args: CountArgs, cfg: &crate::config::Config) -> Result<()> {
     let roots: Vec<PathBuf> = if args.paths.is_empty() {
         vec![PathBuf::from(".")]
     } else {
@@ -45,8 +45,17 @@ pub fn run(registry: &Registry, args: CountArgs) -> Result<()> {
         "table" => TableExporter.write(&report, &mut sink)?,
         "json" => JsonExporter { pretty: true }.write(&report, &mut sink)?,
         "csv" => CsvExporter.write(&report, &mut sink)?,
-        "sarif" => SarifExporter::default().write(&report, &mut sink)?,
-        other => anyhow::bail!("unknown format {other:?}; supported: table, json, csv, sarif"),
+        "sarif" => SarifExporter {
+            thresholds: bscc_export::SarifThresholds {
+                cyclomatic_max: cfg.thresholds.cyclomatic_max,
+                longest_function_lines: cfg.thresholds.longest_function_lines,
+            },
+        }
+        .write(&report, &mut sink)?,
+        "html" => bscc_export::HtmlExporter.write(&report, &mut sink)?,
+        other => {
+            anyhow::bail!("unknown format {other:?}; supported: table, json, csv, sarif, html")
+        }
     }
     sink.flush()?;
     Ok(())

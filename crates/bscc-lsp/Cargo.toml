@@ -1,5 +1,5 @@
 [package]
-name = "bscc-cli"
+name = "bscc-lsp"
 edition.workspace = true
 rust-version.workspace = true
 version.workspace = true
@@ -11,7 +11,7 @@ authors.workspace = true
 workspace = true
 
 [[bin]]
-name = "bscc"
+name = "bscc-lsp"
 path = "src/main.rs"
 
 [dependencies]
@@ -24,15 +24,6 @@ bscc-lang-go = { path = "../bscc-lang-go" }
 bscc-lang-c = { path = "../bscc-lang-c" }
 bscc-lang-cpp = { path = "../bscc-lang-cpp" }
 bscc-lang-java = { path = "../bscc-lang-java" }
-bscc-export = { path = "../bscc-export" }
-bscc-git = { path = "../bscc-git" }
-bscc-lsp = { path = "../bscc-lsp" }
-clap.workspace = true
 anyhow.workspace = true
-serde.workspace = true
-toml.workspace = true
-
-[dev-dependencies]
-insta.workspace = true
-serde_json.workspace = true
-tempfile = "3"
+tower-lsp.workspace = true
+tokio.workspace = true

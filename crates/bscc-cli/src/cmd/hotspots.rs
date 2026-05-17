@@ -16,7 +16,7 @@ pub struct HotspotsArgs {
     pub no_gitignore: bool,
 }
 
-pub fn run(registry: &Registry, args: HotspotsArgs) -> Result<()> {
+pub fn run(registry: &Registry, args: HotspotsArgs, cfg: &crate::config::Config) -> Result<()> {
     let roots: Vec<PathBuf> = if args.paths.is_empty() {
         vec![PathBuf::from(".")]
     } else {
@@ -35,9 +35,13 @@ pub fn run(registry: &Registry, args: HotspotsArgs) -> Result<()> {
     // Resolve the repo root from the first walked path. If it's not in a
     // repo, fall back to printing files ranked by complexity (or LOC).
     let probe = roots[0].canonicalize().unwrap_or(roots[0].clone());
-    let opts = bscc_git::GitOptions {
-        window_days: args.window_days,
+    // CLI flag wins over config file.
+    let window_days = if args.window_days == 90 {
+        cfg.git.window_days
+    } else {
+        args.window_days
     };
+    let opts = bscc_git::GitOptions { window_days };
     if let Ok(root) = bscc_git::repo_root(&probe) {
         bscc_git::enrich(&mut report, &root, &opts)?;
     } else {

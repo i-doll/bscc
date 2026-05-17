@@ -12,6 +12,7 @@ members = [
     "crates/bscc-lang-cpp",
     "crates/bscc-lang-java",
     "crates/bscc-git",
+    "crates/bscc-lsp",
     "crates/bscc-export",
     "crates/bscc-cli",
 ]
@@ -62,6 +63,10 @@ tree-sitter-go = "0.25"
 tree-sitter-c = "0.24"
 tree-sitter-cpp = "0.23"
 tree-sitter-java = "0.23"
+
+# LSP / async
+tower-lsp = "0.20"
+tokio = { version = "1", features = ["rt-multi-thread", "io-std", "macros", "sync"] }
 
 # tests
 insta = { version = "1", features = ["yaml", "json"] }
