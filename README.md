@@ -163,20 +163,6 @@ by per-language comment + string delimiters in `data/languages.toml`.
 Languages without a tree-sitter plugin use this fallback, so coverage
 breadth doesn't suffer when grammars aren't available.
 
-## Status
-
-v1 implemented across milestones M1–M5.
-
-Known limitations:
-
-- Regex tier does not support nested block comments (Haskell, OCaml may
-  slightly miscount in deeply nested cases).
-- `bscc-git` shells out to `git`; pure-Rust `gix` migration is a
-  follow-up.
-- LSP server is FULL-sync only; large files re-parse on every change.
-- No cognitive complexity (Sonar-style) yet — cyclomatic is the
-  primary complexity metric.
-
 [scc]: https://github.com/boyter/scc
 [scc-langs]: https://github.com/boyter/scc/blob/master/languages.json
 [mise]: https://mise.jdx.dev/
