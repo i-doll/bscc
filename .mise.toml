@@ -1,0 +1,28 @@
+[tools]
+rust = "1.92.0"
+"cargo:cargo-nextest" = "latest"
+"cargo:cargo-insta" = "latest"
+
+[tasks.fmt]
+description = "Format the whole workspace"
+run = "cargo fmt --all"
+
+[tasks."fmt:check"]
+description = "Check formatting"
+run = "cargo fmt --all --check"
+
+[tasks.lint]
+description = "Clippy with warnings-as-errors"
+run = "cargo clippy --workspace --all-targets --all-features -- -D warnings"
+
+[tasks.test]
+description = "Run the test suite via nextest"
+run = "cargo nextest run --workspace --all-features"
+
+[tasks.cover]
+description = "Coverage (requires cargo-llvm-cov installed separately)"
+run = "cargo llvm-cov --workspace --all-features"
+
+[tasks.bench]
+description = "Run benches"
+run = "cargo bench --workspace"

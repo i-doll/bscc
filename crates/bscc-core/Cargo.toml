@@ -1,0 +1,21 @@
+[package]
+name = "bscc-core"
+edition.workspace = true
+rust-version.workspace = true
+version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+anyhow.workspace = true
+thiserror.workspace = true
+serde.workspace = true
+ignore.workspace = true
+rayon.workspace = true
+
+[dev-dependencies]
+serde_json.workspace = true

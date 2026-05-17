@@ -1,0 +1,52 @@
+---
+source: crates/bscc-cli/tests/golden.rs
+assertion_line: 30
+expression: snapshot
+---
+{
+  "Go": {
+    "language": "Go",
+    "files": 1,
+    "lines": 8,
+    "code": 5,
+    "comments": 1,
+    "blanks": 2,
+    "bytes": 98
+  },
+  "LSL": {
+    "language": "LSL",
+    "files": 1,
+    "lines": 15,
+    "code": 11,
+    "comments": 3,
+    "blanks": 1,
+    "bytes": 263
+  },
+  "Python": {
+    "language": "Python",
+    "files": 1,
+    "lines": 8,
+    "code": 5,
+    "comments": 1,
+    "blanks": 2,
+    "bytes": 136
+  },
+  "Rust": {
+    "language": "Rust",
+    "files": 1,
+    "lines": 5,
+    "code": 4,
+    "comments": 1,
+    "blanks": 0,
+    "bytes": 124
+  },
+  "Shell": {
+    "language": "Shell",
+    "files": 1,
+    "lines": 3,
+    "code": 1,
+    "comments": 2,
+    "blanks": 0,
+    "bytes": 67
+  }
+}

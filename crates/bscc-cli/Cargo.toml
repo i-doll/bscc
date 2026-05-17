@@ -1,0 +1,26 @@
+[package]
+name = "bscc-cli"
+edition.workspace = true
+rust-version.workspace = true
+version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[lints]
+workspace = true
+
+[[bin]]
+name = "bscc"
+path = "src/main.rs"
+
+[dependencies]
+bscc-core = { path = "../bscc-core" }
+bscc-regex-tier = { path = "../bscc-regex-tier" }
+bscc-export = { path = "../bscc-export" }
+clap.workspace = true
+anyhow.workspace = true
+
+[dev-dependencies]
+insta.workspace = true
+serde_json.workspace = true

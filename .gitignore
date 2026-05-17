@@ -1,0 +1,13 @@
+/target/
+**/*.rs.bk
+Cargo.lock.bak
+
+# Per personal CLAUDE.md
+tasks/todo.md
+tasks/lessons.md
+
+# Editor / OS noise
+.DS_Store
+.idea/
+.vscode/
+*.swp
