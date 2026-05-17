@@ -1,0 +1,178 @@
+==================
+Logical && and || same precedence
+==================
+
+default {
+    state_entry() {
+        integer a = 1;
+        integer b = 0;
+        integer c = 1;
+        if (a && b || c) {
+            llSay(0, "any");
+        }
+    }
+}
+
+---
+
+(source_file
+  (default_state
+    (event_handler
+      name: (identifier)
+      body: (block
+        (variable_declaration type: (type) name: (identifier) value: (integer_literal))
+        (variable_declaration type: (type) name: (identifier) value: (integer_literal))
+        (variable_declaration type: (type) name: (identifier) value: (integer_literal))
+        (if_statement
+          condition: (binary_expression
+            left: (binary_expression
+              left: (identifier)
+              right: (identifier))
+            right: (identifier))
+          consequence: (block
+            (expression_statement
+              (call_expression
+                function: (identifier)
+                (argument_list
+                  (integer_literal)
+                  (string_literal))))))))))
+
+==================
+Bitwise operators
+==================
+
+default {
+    state_entry() {
+        integer x = 0xF0 | 0x0F;
+        integer y = 0xFF & 0x0F;
+        integer z = 0xFF ^ 0x0F;
+        integer w = ~x;
+    }
+}
+
+---
+
+(source_file
+  (default_state
+    (event_handler
+      name: (identifier)
+      body: (block
+        (variable_declaration type: (type) name: (identifier)
+          value: (binary_expression
+            left: (integer_literal)
+            right: (integer_literal)))
+        (variable_declaration type: (type) name: (identifier)
+          value: (binary_expression
+            left: (integer_literal)
+            right: (integer_literal)))
+        (variable_declaration type: (type) name: (identifier)
+          value: (binary_expression
+            left: (integer_literal)
+            right: (integer_literal)))
+        (variable_declaration type: (type) name: (identifier)
+          value: (unary_expression
+            argument: (identifier)))))))
+
+==================
+Postfix and prefix update
+==================
+
+default {
+    state_entry() {
+        integer i = 0;
+        i++;
+        ++i;
+        i--;
+        --i;
+    }
+}
+
+---
+
+(source_file
+  (default_state
+    (event_handler
+      name: (identifier)
+      body: (block
+        (variable_declaration type: (type) name: (identifier) value: (integer_literal))
+        (expression_statement (update_expression argument: (identifier)))
+        (expression_statement (update_expression argument: (identifier)))
+        (expression_statement (update_expression argument: (identifier)))
+        (expression_statement (update_expression argument: (identifier)))))))
+
+==================
+Compound assignment operators
+==================
+
+default {
+    state_entry() {
+        integer x = 10;
+        x += 5;
+        x -= 2;
+        x *= 3;
+        x /= 2;
+        x %= 4;
+    }
+}
+
+---
+
+(source_file
+  (default_state
+    (event_handler
+      name: (identifier)
+      body: (block
+        (variable_declaration type: (type) name: (identifier) value: (integer_literal))
+        (expression_statement (assignment_expression left: (identifier) right: (integer_literal)))
+        (expression_statement (assignment_expression left: (identifier) right: (integer_literal)))
+        (expression_statement (assignment_expression left: (identifier) right: (integer_literal)))
+        (expression_statement (assignment_expression left: (identifier) right: (integer_literal)))
+        (expression_statement (assignment_expression left: (identifier) right: (integer_literal)))))))
+
+==================
+Vector member access and arithmetic
+==================
+
+default {
+    state_entry() {
+        vector v = <1.0, 2.0, 3.0>;
+        float sum = v.x + v.y + v.z;
+        vector doubled = v * 2.0;
+        float len = v * v;
+    }
+}
+
+---
+
+(source_file
+  (default_state
+    (event_handler
+      name: (identifier)
+      body: (block
+        (variable_declaration
+          type: (type)
+          name: (identifier)
+          value: (vector_literal
+            x: (float_literal)
+            y: (float_literal)
+            z: (float_literal)))
+        (variable_declaration
+          type: (type)
+          name: (identifier)
+          value: (binary_expression
+            left: (binary_expression
+              left: (member_expression object: (identifier) property: (identifier))
+              right: (member_expression object: (identifier) property: (identifier)))
+            right: (member_expression object: (identifier) property: (identifier))))
+        (variable_declaration
+          type: (type)
+          name: (identifier)
+          value: (binary_expression
+            left: (identifier)
+            right: (float_literal)))
+        (variable_declaration
+          type: (type)
+          name: (identifier)
+          value: (binary_expression
+            left: (identifier)
+            right: (identifier)))))))

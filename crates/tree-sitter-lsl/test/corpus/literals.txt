@@ -1,0 +1,128 @@
+==================
+Integer literal forms
+==================
+
+default {
+    state_entry() {
+        integer dec = 123;
+        integer hex = 0xFF;
+        integer hex2 = 0XAbCdEf;
+    }
+}
+
+---
+
+(source_file
+  (default_state
+    (event_handler
+      name: (identifier)
+      body: (block
+        (variable_declaration
+          type: (type)
+          name: (identifier)
+          value: (integer_literal))
+        (variable_declaration
+          type: (type)
+          name: (identifier)
+          value: (integer_literal))
+        (variable_declaration
+          type: (type)
+          name: (identifier)
+          value: (integer_literal))))))
+
+==================
+Float literal forms
+==================
+
+default {
+    state_entry() {
+        float a = 1.5;
+        float b = 1.;
+        float c = .5;
+        float d = 1e3;
+        float e = 1.5e-3;
+        float f = 1.5E+10;
+    }
+}
+
+---
+
+(source_file
+  (default_state
+    (event_handler
+      name: (identifier)
+      body: (block
+        (variable_declaration type: (type) name: (identifier) value: (float_literal))
+        (variable_declaration type: (type) name: (identifier) value: (float_literal))
+        (variable_declaration type: (type) name: (identifier) value: (float_literal))
+        (variable_declaration type: (type) name: (identifier) value: (float_literal))
+        (variable_declaration type: (type) name: (identifier) value: (float_literal))
+        (variable_declaration type: (type) name: (identifier) value: (float_literal))))))
+
+==================
+String with escape sequences
+==================
+
+default {
+    state_entry() {
+        string a = "hello\n";
+        string b = "tab\there";
+        string c = "quote: \"x\"";
+        string d = "backslash: \\";
+        string e = "";
+    }
+}
+
+---
+
+(source_file
+  (default_state
+    (event_handler
+      name: (identifier)
+      body: (block
+        (variable_declaration type: (type) name: (identifier) value: (string_literal))
+        (variable_declaration type: (type) name: (identifier) value: (string_literal))
+        (variable_declaration type: (type) name: (identifier) value: (string_literal))
+        (variable_declaration type: (type) name: (identifier) value: (string_literal))
+        (variable_declaration type: (type) name: (identifier) value: (string_literal))))))
+
+==================
+Empty list literal
+==================
+
+default {
+    state_entry() {
+        list a = [];
+        list b = [1, 2, 3];
+        list c = ["a", 1, <0.0, 0.0, 0.0>];
+    }
+}
+
+---
+
+(source_file
+  (default_state
+    (event_handler
+      name: (identifier)
+      body: (block
+        (variable_declaration
+          type: (type)
+          name: (identifier)
+          value: (list_literal))
+        (variable_declaration
+          type: (type)
+          name: (identifier)
+          value: (list_literal
+            (integer_literal)
+            (integer_literal)
+            (integer_literal)))
+        (variable_declaration
+          type: (type)
+          name: (identifier)
+          value: (list_literal
+            (string_literal)
+            (integer_literal)
+            (vector_literal
+              x: (float_literal)
+              y: (float_literal)
+              z: (float_literal))))))))

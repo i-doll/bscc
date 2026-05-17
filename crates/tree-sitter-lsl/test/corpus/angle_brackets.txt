@@ -1,0 +1,150 @@
+==================
+Vector with negative components
+==================
+
+default {
+    state_entry() {
+        vector v = <-1.0, -2.0, -3.0>;
+    }
+}
+
+---
+
+(source_file
+  (default_state
+    (event_handler
+      name: (identifier)
+      body: (block
+        (variable_declaration
+          type: (type)
+          name: (identifier)
+          value: (vector_literal
+            x: (unary_expression
+              argument: (float_literal))
+            y: (unary_expression
+              argument: (float_literal))
+            z: (unary_expression
+              argument: (float_literal))))))))
+
+==================
+Comparison expressions (not vector literals)
+==================
+
+default {
+    state_entry() {
+        integer a = 1;
+        integer b = 2;
+        if (a < b) {
+            llSay(0, "less");
+        }
+        integer c = a < b;
+    }
+}
+
+---
+
+(source_file
+  (default_state
+    (event_handler
+      name: (identifier)
+      body: (block
+        (variable_declaration
+          type: (type)
+          name: (identifier)
+          value: (integer_literal))
+        (variable_declaration
+          type: (type)
+          name: (identifier)
+          value: (integer_literal))
+        (if_statement
+          condition: (binary_expression
+            left: (identifier)
+            right: (identifier))
+          consequence: (block
+            (expression_statement
+              (call_expression
+                function: (identifier)
+                (argument_list
+                  (integer_literal)
+                  (string_literal))))))
+        (variable_declaration
+          type: (type)
+          name: (identifier)
+          value: (binary_expression
+            left: (identifier)
+            right: (identifier)))))))
+
+==================
+Vector literal whose first component is a comparison
+==================
+
+default {
+    state_entry() {
+        vector v = <a < b, c, d>;
+    }
+}
+
+---
+
+(source_file
+  (default_state
+    (event_handler
+      name: (identifier)
+      body: (block
+        (variable_declaration
+          type: (type)
+          name: (identifier)
+          value: (vector_literal
+            x: (binary_expression
+              left: (identifier)
+              right: (identifier))
+            y: (identifier)
+            z: (identifier)))))))
+
+==================
+Shifts vs nested less-than
+==================
+
+default {
+    state_entry() {
+        integer x = 1 << 3;
+        integer y = 16 >> 2;
+        if ((x << 1) < y) {
+            llSay(0, "shifted");
+        }
+    }
+}
+
+---
+
+(source_file
+  (default_state
+    (event_handler
+      name: (identifier)
+      body: (block
+        (variable_declaration
+          type: (type)
+          name: (identifier)
+          value: (binary_expression
+            left: (integer_literal)
+            right: (integer_literal)))
+        (variable_declaration
+          type: (type)
+          name: (identifier)
+          value: (binary_expression
+            left: (integer_literal)
+            right: (integer_literal)))
+        (if_statement
+          condition: (binary_expression
+            left: (parenthesized_expression
+              (binary_expression
+                left: (identifier)
+                right: (integer_literal)))
+            right: (identifier))
+          consequence: (block
+            (expression_statement
+              (call_expression
+                function: (identifier)
+                (argument_list
+                  (integer_literal)
+                  (string_literal))))))))))
