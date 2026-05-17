@@ -90,6 +90,7 @@ dependencies = [
  "anyhow",
  "bscc-core",
  "bscc-export",
+ "bscc-git",
  "bscc-lang-c",
  "bscc-lang-cpp",
  "bscc-lang-go",
@@ -101,6 +102,7 @@ dependencies = [
  "clap",
  "insta",
  "serde_json",
+ "tempfile",
 ]
 
 [[package]]
@@ -123,6 +125,16 @@ dependencies = [
  "owo-colors",
  "serde",
  "serde_json",
+]
+
+[[package]]
+name = "bscc-git"
+version = "0.0.1"
+dependencies = [
+ "anyhow",
+ "bscc-core",
+ "tempfile",
+ "thiserror",
 ]
 
 [[package]]

@@ -10,7 +10,7 @@ pub mod report;
 pub mod walk;
 
 pub use exporter::Exporter;
-pub use metrics::FileMetrics;
+pub use metrics::{FileMetrics, FunctionDetail, GitMetrics};
 pub use registry::{Analyzer, LanguageEntry, Registry, Tier};
 pub use report::{LanguageTotal, Report};
 pub use walk::{WalkOptions, walk};

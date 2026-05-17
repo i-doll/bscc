@@ -25,9 +25,11 @@ bscc-lang-c = { path = "../bscc-lang-c" }
 bscc-lang-cpp = { path = "../bscc-lang-cpp" }
 bscc-lang-java = { path = "../bscc-lang-java" }
 bscc-export = { path = "../bscc-export" }
+bscc-git = { path = "../bscc-git" }
 clap.workspace = true
 anyhow.workspace = true
 
 [dev-dependencies]
 insta.workspace = true
 serde_json.workspace = true
+tempfile = "3"

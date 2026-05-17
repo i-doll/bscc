@@ -18,7 +18,7 @@
 //! Captures with other names are ignored, so per-language queries can include
 //! helper captures freely.
 
-use bscc_core::{Analyzer, FileMetrics};
+use bscc_core::{Analyzer, FileMetrics, FunctionDetail};
 use std::path::Path;
 use thiserror::Error;
 use tree_sitter::{Language, Parser, Query, QueryCursor, StreamingIterator};
@@ -139,6 +139,52 @@ impl Analyzer for TreeSitterAnalyzer {
         m.imports = Some(imports);
         m.todo_comments = Some(todo_comments);
         m
+    }
+
+    fn explain(&self, _path: &std::path::Path, source: &[u8]) -> Option<Vec<FunctionDetail>> {
+        let mut parser = Parser::new();
+        parser.set_language(&self.language).ok()?;
+        let tree = parser.parse(source, None)?;
+
+        let mut function_ranges: Vec<(usize, usize, u32, u32)> = Vec::new();
+        let mut branches: Vec<usize> = Vec::new();
+
+        let mut cursor = QueryCursor::new();
+        let mut matches = cursor.matches(&self.query, tree.root_node(), source);
+        while let Some(mat) = matches.next() {
+            for cap in mat.captures {
+                let idx = cap.index;
+                let node = cap.node;
+                if Some(idx) == self.cap_function {
+                    let sp = node.start_position();
+                    let ep = node.end_position();
+                    function_ranges.push((
+                        node.start_byte(),
+                        node.end_byte(),
+                        sp.row as u32,
+                        ep.row as u32,
+                    ));
+                } else if Some(idx) == self.cap_branch {
+                    branches.push(node.start_byte());
+                }
+            }
+        }
+        branches.sort_unstable();
+
+        let mut out = Vec::with_capacity(function_ranges.len());
+        for (start, end, srow, erow) in function_ranges {
+            let lo = branches.partition_point(|&b| b < start);
+            let hi = branches.partition_point(|&b| b < end);
+            let cc = 1 + (hi - lo) as u32;
+            out.push(FunctionDetail {
+                start_line: srow + 1,
+                end_line: erow + 1,
+                lines: erow.saturating_sub(srow) + 1,
+                cyclomatic: cc,
+            });
+        }
+        out.sort_by(|a, b| a.start_line.cmp(&b.start_line));
+        Some(out)
     }
 }
 

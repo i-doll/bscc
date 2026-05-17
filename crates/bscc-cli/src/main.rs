@@ -14,6 +14,10 @@ struct Cli {
 enum Command {
     /// Count lines of code per language.
     Count(cmd::count::CountArgs),
+    /// Rank files by hotspot score (complexity × log(churn)).
+    Hotspots(cmd::hotspots::HotspotsArgs),
+    /// Per-function breakdown for one file (tree-sitter tier only).
+    Explain(cmd::explain::ExplainArgs),
     /// List registered languages and which tier they use.
     Languages,
 }
@@ -23,6 +27,8 @@ fn main() -> Result<()> {
     let registry = build_registry();
     match cli.command {
         Command::Count(args) => cmd::count::run(&registry, args),
+        Command::Hotspots(args) => cmd::hotspots::run(&registry, args),
+        Command::Explain(args) => cmd::explain::run(&registry, &args),
         Command::Languages => cmd::languages::run(&registry),
     }
 }

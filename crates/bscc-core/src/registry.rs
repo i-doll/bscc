@@ -21,9 +21,14 @@ pub struct LanguageEntry {
 }
 
 /// Analyzers consume the bytes of one file and produce metrics. Both tiers
-/// implement this so the engine dispatches uniformly.
+/// implement this so the engine dispatches uniformly. The default
+/// `explain` implementation returns `None`; tree-sitter-tier analyzers
+/// override it to provide per-function detail for `bscc explain`.
 pub trait Analyzer: Send + Sync {
     fn analyze(&self, path: &Path, source: &[u8]) -> FileMetrics;
+    fn explain(&self, _path: &Path, _source: &[u8]) -> Option<Vec<crate::FunctionDetail>> {
+        None
+    }
 }
 
 /// Holds all registered languages. Plugin crates call `register()` once at

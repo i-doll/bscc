@@ -11,6 +11,7 @@ members = [
     "crates/bscc-lang-c",
     "crates/bscc-lang-cpp",
     "crates/bscc-lang-java",
+    "crates/bscc-git",
     "crates/bscc-export",
     "crates/bscc-cli",
 ]
