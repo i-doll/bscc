@@ -16,4 +16,5 @@ tasks/lessons.md
 .DS_Store
 .idea/
 .vscode/
+!editors/vscode/.vscode/
 *.swp

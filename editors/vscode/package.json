@@ -2,7 +2,7 @@
   "name": "bscc",
   "displayName": "bscc",
   "description": "Code complexity + COCOMO cost insights from the bscc analyzer",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "i-doll",
   "license": "MIT OR Apache-2.0",
   "repository": {
@@ -59,18 +59,18 @@
     },
     "commands": [
       {
-        "command": "bscc.noop",
-        "title": "bscc: Show function details",
-        "category": "bscc"
-      },
-      {
         "command": "bscc.showDetails",
-        "title": "bscc: Show per-function details for current file",
+        "title": "Show per-function details for current file",
         "category": "bscc"
       },
       {
         "command": "bscc.restart",
-        "title": "bscc: Restart server",
+        "title": "Restart server",
+        "category": "bscc"
+      },
+      {
+        "command": "bscc.showOutput",
+        "title": "Show extension log",
         "category": "bscc"
       }
     ]
