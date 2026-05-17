@@ -1358,6 +1358,13 @@ name = "PKGBUILD"
 extensions = ["pkgbuild"]
 
 [[language]]
+name = "Packer"
+extensions = ["pkr.hcl", "pkrvars.hcl", "pkr.json"]
+line_comments = ["#", "//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
 name = "PL/SQL"
 extensions = ["fnc", "pkb", "pks", "prc", "trg", "vw"]
 line_comments = ["--"]
