@@ -1,19 +1,727 @@
-# Regex-tier languages for bscc. Entries here serve as the fallback for any
-# language not covered by a tree-sitter `bscc-lang-*` crate. When such a crate
-# is also registered, its entry replaces the one defined here.
+# Regex-tier languages for bscc.
+# Auto-converted from scc's languages.json (https://github.com/boyter/scc)
+# plus bscc-specific additions (LSL, Git Config, Editor Config, JSX).
 #
-# Known limitation: the tokenizer does NOT support nested block comments, so
-# languages like Haskell or OCaml may slightly miscount in deeply nested
-# comment cases. This is acceptable for v0.1; tree-sitter crates for those
-# languages would fix it.
-
-# ────────── Systems / compiled ──────────
+# Known limitation: the tokenizer does not support nested block comments,
+# so languages with nestedmultiline=true (Haskell, OCaml, Swift, ...) may
+# slightly miscount in deeply nested cases.
 
 [[language]]
-name = "Rust"
-extensions = ["rs"]
+name = "ABAP"
+extensions = ["abap"]
+line_comments = ["*", "\\\""]
+
+[[language]]
+name = "ABNF"
+extensions = ["abnf"]
+line_comments = [";"]
+
+[[language]]
+name = "APL"
+extensions = ["apl", "aplf", "apln", "aplc", "dyalog"]
+line_comments = ["⍝"]
+strings = [["'", "'"]]
+
+[[language]]
+name = "ASP"
+extensions = ["asa", "asp"]
+line_comments = ["'", "REM"]
+
+[[language]]
+name = "ASP.NET"
+extensions = ["asax", "ascx", "asmx", "aspx", "master", "sitemap", "webinfo"]
+block_comments = [["<!--", "-->"], ["<%--", "-->"]]
+
+[[language]]
+name = "ATS"
+extensions = ["dats", "sats", "ats", "hats"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"], ["(*", "*)"], ["////", "THISSHOULDNEVERAPPEARWEHOPE"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "AWK"
+extensions = ["awk"]
+line_comments = ["#"]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "ActionScript"
+extensions = ["as"]
 line_comments = ["//"]
 block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Ada"
+extensions = ["ada", "adb", "ads", "pad"]
+line_comments = ["--"]
+
+[[language]]
+name = "Agda"
+extensions = ["agda"]
+line_comments = ["--"]
+block_comments = [["{-", "-}"]]
+
+[[language]]
+name = "Alchemist"
+extensions = ["crn"]
+line_comments = ["#"]
+
+[[language]]
+name = "Alex"
+extensions = ["x"]
+
+[[language]]
+name = "Algol 68"
+extensions = ["a68"]
+block_comments = [["#", "#"], ["CO", "CO"], ["COMMENT", "COMMENT"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Alloy"
+extensions = ["als"]
+line_comments = ["//", "--"]
+block_comments = [["/*", "*/"]]
+
+[[language]]
+name = "Amber"
+extensions = ["ab"]
+line_comments = ["//"]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Android Interface Definition Language"
+extensions = ["aidl"]
+line_comments = ["//"]
+block_comments = [["/**", "*/"], ["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Apex"
+extensions = ["apex", "trigger"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["'", "'"]]
+
+[[language]]
+name = "AppleScript"
+extensions = ["applescript"]
+line_comments = ["#", "--"]
+block_comments = [["(*", "*)"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "ArkTs"
+extensions = ["ets"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""], ["'", "'"], ["`", "`"]]
+
+[[language]]
+name = "Arturo"
+extensions = ["art"]
+line_comments = [";"]
+strings = [["\\\"", "\\\""], ["'", "'"]]
+
+[[language]]
+name = "AsciiDoc"
+extensions = ["adoc"]
+
+[[language]]
+name = "Assembly"
+extensions = ["s", "asm"]
+line_comments = [";"]
+block_comments = [["/*", "*/"]]
+strings = [["\\\"", "\\\""], ["'", "'"]]
+
+[[language]]
+name = "Astro"
+extensions = ["astro"]
+line_comments = ["//"]
+block_comments = [["<!--", "-->"], ["/*", "*/"]]
+strings = [["\"", "\""], ["'", "'"]]
+
+[[language]]
+name = "AutoHotKey"
+extensions = ["ahk"]
+line_comments = [";"]
+block_comments = [["/*", "*/"]]
+
+[[language]]
+name = "Autoconf"
+extensions = ["in"]
+line_comments = ["#", "dnl"]
+
+[[language]]
+name = "Avro"
+extensions = ["avdl", "avpr", "avsc"]
+
+[[language]]
+name = "BASH"
+extensions = ["bash", "bash_login", "bash_logout", "bash_profile", "bashrc"]
+filenames = [".bash_login", ".bash_logout", ".bash_profile", ".bashrc"]
+line_comments = ["#"]
+strings = [["\\\"", "\\\""], ["'", "'"]]
+
+[[language]]
+name = "Basic"
+extensions = ["bas"]
+line_comments = ["'"]
+strings = [["\\\"", "\\\""]]
+
+[[language]]
+name = "Batch"
+extensions = ["bat", "btm", "cmd"]
+line_comments = ["REM", "::"]
+
+[[language]]
+name = "Bazel"
+extensions = ["bzl", "build.bazel", "build", "workspace"]
+line_comments = ["#"]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Bean"
+extensions = ["bean", "beancount"]
+line_comments = [";"]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Bicep"
+extensions = ["bicep"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["'", "'"]]
+
+[[language]]
+name = "Bitbake"
+extensions = ["bb", "bbappend", "bbclass"]
+line_comments = ["#"]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Bitbucket Pipeline"
+extensions = ["bitbucket-pipelines.yml"]
+line_comments = ["#"]
+
+[[language]]
+name = "Blade template"
+extensions = ["blade.php"]
+block_comments = [["{{--", "--}}"], ["<!--", "-->"]]
+
+[[language]]
+name = "Blueprint"
+extensions = ["blp"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Boo"
+extensions = ["boo"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""], ["'", "'"], ["\"\"\"", "\"\"\""]]
+
+[[language]]
+name = "Bosque"
+extensions = ["bsq"]
+line_comments = ["//"]
+strings = [["\"", "\""], ["'", "'"]]
+
+[[language]]
+name = "Brainfuck"
+extensions = ["bf"]
+
+[[language]]
+name = "Bru"
+extensions = ["bru"]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "BuildStream"
+extensions = ["bst"]
+line_comments = ["#"]
+
+[[language]]
+name = "C"
+extensions = ["c", "ec", "pgc"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "C Header"
+extensions = ["h"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "C Shell"
+extensions = ["csh"]
+filenames = [".cshrc"]
+line_comments = ["#"]
+
+[[language]]
+name = "C#"
+extensions = ["cs", "csx"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["@\"", "\""], ["\"", "\""]]
+
+[[language]]
+name = "C++"
+extensions = ["cc", "cpp", "cxx", "c++", "pcc", "ino", "ccm", "cppm", "cxxm", "c++m", "mxx"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "C++ Header"
+extensions = ["hh", "hpp", "hxx", "h++", "inl", "ipp", "ixx", "tpp"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "C3"
+extensions = ["c3"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"], ["<*", "*>"]]
+strings = [["\"", "\""], ["`", "`"]]
+
+[[language]]
+name = "CMake"
+extensions = ["cmake", "cmakelists.txt"]
+line_comments = ["#"]
+block_comments = [["#[[", "]]"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "COBOL"
+extensions = ["cob", "cbl", "ccp", "cobol", "cpy"]
+line_comments = ["*"]
+
+[[language]]
+name = "CSS"
+extensions = ["css"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "CSV"
+extensions = ["csv"]
+
+[[language]]
+name = "Cabal"
+extensions = ["cabal"]
+line_comments = ["--"]
+block_comments = [["{-", "-}"]]
+
+[[language]]
+name = "Cairo"
+extensions = ["cairo"]
+line_comments = ["//"]
+strings = [["'", "'"]]
+
+[[language]]
+name = "Cangjie"
+extensions = ["cj"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["'", "'"], ["\"", "\""], ["\"\"\"", "\"\"\""], ["'''", "'''"]]
+
+[[language]]
+name = "Cap'n Proto"
+extensions = ["capnp"]
+line_comments = ["#"]
+
+[[language]]
+name = "Cassius"
+extensions = ["cassius"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Ceylon"
+extensions = ["ceylon"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Chapel"
+extensions = ["chpl"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""], ["'", "'"]]
+
+[[language]]
+name = "Circom"
+extensions = ["circom"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+
+[[language]]
+name = "Clipper"
+extensions = ["prg", "ch"]
+line_comments = ["//", "&&"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""], ["'", "'"]]
+
+[[language]]
+name = "Clojure"
+extensions = ["clj", "cljc"]
+line_comments = [";"]
+
+[[language]]
+name = "ClojureScript"
+extensions = ["cljs"]
+line_comments = [";"]
+
+[[language]]
+name = "Closure Template"
+extensions = ["soy"]
+line_comments = ["//"]
+block_comments = [["/**", "*/"], ["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "CloudFormation (JSON)"
+extensions = ["json"]
+
+[[language]]
+name = "CloudFormation (YAML)"
+extensions = ["yaml", "yml"]
+line_comments = ["#"]
+
+[[language]]
+name = "CodeQL"
+extensions = ["ql", "qll"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "CoffeeScript"
+extensions = ["coffee"]
+line_comments = ["#"]
+block_comments = [["###", "###"]]
+strings = [["\\\"", "\\\""], ["'", "'"]]
+
+[[language]]
+name = "Cogent"
+extensions = ["cogent"]
+line_comments = ["--"]
+
+[[language]]
+name = "ColdFusion"
+extensions = ["cfm"]
+block_comments = [["<!---", "--->"]]
+strings = [["\\\"", "\\\""], ["'", "'"]]
+
+[[language]]
+name = "ColdFusion CFScript"
+extensions = ["cfc"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Coq"
+extensions = ["v"]
+block_comments = [["(*", "*)"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Creole"
+extensions = ["creole"]
+
+[[language]]
+name = "Crystal"
+extensions = ["cr"]
+line_comments = ["#"]
+strings = [["\\\"", "\\\""], ["'", "'"]]
+
+[[language]]
+name = "Cuda"
+extensions = ["cu", "cuh"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Cypher"
+extensions = ["cypher", "cql"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["'", "'"], ["\"", "\""]]
+
+[[language]]
+name = "Cython"
+extensions = ["pyx", "pxi", "pxd"]
+line_comments = ["#"]
+strings = [["\\\"", "\\\""], ["'", "'"], ["\\\"\\\"\\\"", "\\\"\\\"\\\""], ["'''", "'''"]]
+
+[[language]]
+name = "D"
+extensions = ["d"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"], ["/+", "+/"]]
+strings = [["\"", "\""], ["'", "'"]]
+
+[[language]]
+name = "D2"
+extensions = ["d2"]
+line_comments = ["#"]
+
+[[language]]
+name = "DAML"
+extensions = ["daml"]
+line_comments = ["--"]
+block_comments = [["{-", "-}"]]
+
+[[language]]
+name = "DM"
+extensions = ["dm"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""], ["'", "'"]]
+
+[[language]]
+name = "DOT"
+extensions = ["dot", "gv"]
+line_comments = ["//", "#"]
+block_comments = [["/*", "*/"]]
+
+[[language]]
+name = "Dart"
+extensions = ["dart"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Device Tree"
+extensions = ["dts", "dtsi"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Dhall"
+extensions = ["dhall"]
+line_comments = ["--"]
+block_comments = [["{-", "-}"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Docker ignore"
+filenames = [".dockerignore"]
+line_comments = ["#", "//"]
+
+[[language]]
+name = "Dockerfile"
+extensions = ["dockerfile"]
+filenames = ["dockerfile"]
+line_comments = ["#"]
+strings = [["\\\"", "\\\""], ["'", "'"]]
+
+[[language]]
+name = "Document Type Definition"
+extensions = ["dtd"]
+
+[[language]]
+name = "Elixir"
+extensions = ["ex", "exs"]
+line_comments = ["#"]
+strings = [["\"\"\"", "\"\"\""], ["\"", "\""], ["'''", "'''"], ["'", "'"]]
+
+[[language]]
+name = "Elixir Template"
+extensions = ["eex"]
+line_comments = ["#"]
+block_comments = [["<!--", "-->"]]
+strings = [["\"\"\"", "\"\"\""], ["\"", "\""], ["'''", "'''"], ["'", "'"]]
+
+[[language]]
+name = "Elm"
+extensions = ["elm"]
+line_comments = ["--"]
+block_comments = [["{-", "-}"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Emacs Dev Env"
+extensions = ["ede"]
+line_comments = [";"]
+
+[[language]]
+name = "Emacs Lisp"
+extensions = ["el"]
+line_comments = [";"]
+
+[[language]]
+name = "EmiT"
+extensions = ["emit"]
+line_comments = ["//"]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Erlang"
+extensions = ["erl", "hrl"]
+line_comments = ["%"]
+
+[[language]]
+name = "Expect"
+extensions = ["exp"]
+line_comments = ["#"]
+strings = [["\\\"", "\\\""], ["'", "'"]]
+
+[[language]]
+name = "Extensible Stylesheet Language Transformations"
+extensions = ["xslt", "xsl"]
+
+[[language]]
+name = "F#"
+extensions = ["fs", "fsi", "fsx", "fsscript"]
+line_comments = ["//"]
+block_comments = [["(*", "*)"]]
+
+[[language]]
+name = "F*"
+extensions = ["fst"]
+block_comments = [["(*", "*)"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "FIDL"
+extensions = ["fidl"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "FORTRAN Legacy"
+extensions = ["f", "for", "ftn", "f77", "pfo"]
+line_comments = ["c", "C", "!", "*"]
+strings = [["\\\"", "\\\""], ["'", "'"]]
+
+[[language]]
+name = "FSL"
+extensions = ["fsl"]
+line_comments = ["//"]
+
+[[language]]
+name = "FXML"
+extensions = ["fxml"]
+block_comments = [["<!--", "-->"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Factor"
+extensions = ["factor"]
+line_comments = ["!"]
+block_comments = [["![[", "]]"], ["![=[", "]=]"], ["![==[", "]==]"], ["![===[", "]===]"], ["![====[", "]====]"], ["![=====[", "]=====]"], ["![======[", "]======]"], ["/*", "*/"], ["((", "))"]]
+strings = [["\"", "\""], ["STRING:", ";"], ["[======[", "]======]"], ["[=====[", "]====]"], ["[====[", "]====]"], ["[===[", "]===]"], ["[==[", "]==]"], ["[=[", "]=]"], ["[[", "]]"]]
+
+[[language]]
+name = "Fennel"
+extensions = ["fnl"]
+line_comments = [";"]
+strings = [["\"", "\""], [",", "'"]]
+
+[[language]]
+name = "Fish"
+extensions = ["fish"]
+line_comments = ["#"]
+strings = [["\\\"", "\\\""], ["'", "'"]]
+
+[[language]]
+name = "Flow9"
+extensions = ["flow"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Forth"
+extensions = ["4th", "forth", "fr", "frt", "fth", "f83", "fb", "fpm", "e4", "rx", "ft"]
+line_comments = ["\\\\"]
+block_comments = [["( ", ")"]]
+
+[[language]]
+name = "Fortran Modern"
+extensions = ["f03", "f08", "f90", "f95"]
+line_comments = ["!"]
+strings = [["\\\"", "\\\""]]
+
+[[language]]
+name = "Fragment Shader File"
+extensions = ["fsh"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Freemarker Template"
+extensions = ["ftl"]
+block_comments = [["<#--", "-->"]]
+
+[[language]]
+name = "Futhark"
+extensions = ["fut"]
+line_comments = ["--"]
+
+[[language]]
+name = "GDScript"
+extensions = ["gd"]
+line_comments = ["#"]
+strings = [["\"", "\""], ["'", "'"], ["\"\"\"", "\"\"\""]]
+
+[[language]]
+name = "GLSL"
+extensions = ["vert", "tesc", "tese", "geom", "frag", "comp", "glsl"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "GN"
+extensions = ["gn", "gni"]
+line_comments = ["#"]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Game Maker Language"
+extensions = ["gml"]
+line_comments = ["//", "///"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Game Maker Project"
+extensions = ["yyp"]
+
+[[language]]
+name = "Gemfile"
+filenames = ["gemfile"]
+line_comments = ["#"]
+strings = [["\\\"", "\\\""], ["'", "'"]]
+
+[[language]]
+name = "Gherkin Specification"
+extensions = ["feature"]
+line_comments = ["#"]
+
+[[language]]
+name = "Gleam"
+extensions = ["gleam"]
+line_comments = ["//", "///", "////"]
 strings = [["\"", "\""]]
 
 [[language]]
@@ -24,319 +732,174 @@ block_comments = [["/*", "*/"]]
 strings = [["\"", "\""], ["`", "`"]]
 
 [[language]]
-name = "C"
-extensions = ["c", "h"]
-line_comments = ["//"]
-block_comments = [["/*", "*/"]]
-strings = [["\"", "\""], ["'", "'"]]
+name = "Go Template"
+extensions = ["tmpl", "gohtml", "gotxt"]
+block_comments = [["{{/*", "*/}}"]]
 
 [[language]]
-name = "C++"
-extensions = ["cpp", "cc", "cxx", "hpp", "hxx", "hh"]
-line_comments = ["//"]
-block_comments = [["/*", "*/"]]
-strings = [["\"", "\""], ["'", "'"]]
-
-[[language]]
-name = "C#"
-extensions = ["cs"]
-line_comments = ["//"]
-block_comments = [["/*", "*/"]]
-strings = [["\"", "\""], ["'", "'"]]
-
-[[language]]
-name = "Objective-C"
-extensions = ["m", "mm"]
-line_comments = ["//"]
-block_comments = [["/*", "*/"]]
-strings = [["\"", "\""]]
-
-[[language]]
-name = "Swift"
-extensions = ["swift"]
-line_comments = ["//"]
-block_comments = [["/*", "*/"]]
-strings = [["\"\"\"", "\"\"\""], ["\"", "\""]]
-
-[[language]]
-name = "Kotlin"
-extensions = ["kt", "kts"]
-line_comments = ["//"]
-block_comments = [["/*", "*/"]]
-strings = [["\"\"\"", "\"\"\""], ["\"", "\""], ["'", "'"]]
-
-[[language]]
-name = "Scala"
-extensions = ["scala", "sc"]
-line_comments = ["//"]
-block_comments = [["/*", "*/"]]
-strings = [["\"\"\"", "\"\"\""], ["\"", "\""], ["'", "'"]]
-
-[[language]]
-name = "Java"
-extensions = ["java"]
-line_comments = ["//"]
-block_comments = [["/*", "*/"]]
-strings = [["\"", "\""], ["'", "'"]]
-
-[[language]]
-name = "Groovy"
-extensions = ["groovy", "gradle"]
-line_comments = ["//"]
-block_comments = [["/*", "*/"]]
-strings = [["\"\"\"", "\"\"\""], ["'''", "'''"], ["\"", "\""], ["'", "'"]]
-
-[[language]]
-name = "D"
-extensions = ["d"]
-line_comments = ["//"]
+name = "Go+"
+extensions = ["gop"]
+line_comments = ["//", "#"]
 block_comments = [["/*", "*/"]]
 strings = [["\"", "\""], ["`", "`"]]
 
 [[language]]
-name = "Zig"
-extensions = ["zig"]
+name = "Godot Scene"
+extensions = ["tscn"]
+
+[[language]]
+name = "Gradle"
+extensions = ["gradle"]
 line_comments = ["//"]
-strings = [["\"", "\""]]
+strings = [["'", "'"], ["\"", "\""]]
 
 [[language]]
-name = "Nim"
-extensions = ["nim", "nims"]
+name = "GraphQL"
+extensions = ["graphql"]
 line_comments = ["#"]
-block_comments = [["#[", "]#"]]
-strings = [["\"\"\"", "\"\"\""], ["\"", "\""], ["'", "'"]]
+block_comments = [["\"\"\"", "\"\"\""]]
+strings = [["\"", "\""], ["\"\"\"", "\"\"\""]]
 
 [[language]]
-name = "Crystal"
-extensions = ["cr"]
-line_comments = ["#"]
-strings = [["\"", "\""], ["'", "'"]]
-
-[[language]]
-name = "V"
-extensions = ["v"]
+name = "Gremlin"
+extensions = ["gremlin"]
 line_comments = ["//"]
-block_comments = [["/*", "*/"]]
-strings = [["\"", "\""], ["'", "'"]]
-
-# ────────── Scripting / dynamic ──────────
+strings = [["'", "'"], ["\"", "\""]]
 
 [[language]]
-name = "Python"
-extensions = ["py", "pyi"]
-line_comments = ["#"]
-strings = [
-    ["\"\"\"", "\"\"\""],
-    ["'''", "'''"],
-    ["\"", "\""],
-    ["'", "'"],
-]
-
-[[language]]
-name = "Ruby"
-extensions = ["rb", "rake"]
-line_comments = ["#"]
-block_comments = [["=begin", "=end"]]
-strings = [["\"", "\""], ["'", "'"]]
-
-[[language]]
-name = "Perl"
-extensions = ["pl", "pm", "t"]
-line_comments = ["#"]
-strings = [["\"", "\""], ["'", "'"]]
-
-[[language]]
-name = "PHP"
-extensions = ["php", "phtml"]
-line_comments = ["//", "#"]
-block_comments = [["/*", "*/"]]
-strings = [["\"", "\""], ["'", "'"]]
-
-[[language]]
-name = "JavaScript"
-extensions = ["js", "mjs", "cjs"]
+name = "Groovy"
+extensions = ["groovy", "grt", "gtpl", "gvy"]
 line_comments = ["//"]
 block_comments = [["/*", "*/"]]
-strings = [["\"", "\""], ["'", "'"], ["`", "`"]]
+strings = [["\"", "\""]]
 
 [[language]]
-name = "TypeScript"
-extensions = ["ts", "tsx", "mts", "cts"]
-line_comments = ["//"]
+name = "Gwion"
+extensions = ["gw"]
+line_comments = ["#!"]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "HAML"
+extensions = ["haml"]
+line_comments = ["-#"]
+
+[[language]]
+name = "HCL"
+extensions = ["hcl"]
+line_comments = ["#"]
 block_comments = [["/*", "*/"]]
-strings = [["\"", "\""], ["'", "'"], ["`", "`"]]
-
-[[language]]
-name = "JSX"
-extensions = ["jsx"]
-line_comments = ["//"]
-block_comments = [["/*", "*/"]]
-strings = [["\"", "\""], ["'", "'"], ["`", "`"]]
-
-[[language]]
-name = "CoffeeScript"
-extensions = ["coffee"]
-line_comments = ["#"]
-block_comments = [["###", "###"]]
-strings = [["\"", "\""], ["'", "'"]]
-
-[[language]]
-name = "Dart"
-extensions = ["dart"]
-line_comments = ["//"]
-block_comments = [["/*", "*/"]]
-strings = [["\"\"\"", "\"\"\""], ["'''", "'''"], ["\"", "\""], ["'", "'"]]
-
-[[language]]
-name = "Lua"
-extensions = ["lua"]
-line_comments = ["--"]
-block_comments = [["--[[", "]]"]]
-strings = [["\"", "\""], ["'", "'"]]
-
-[[language]]
-name = "R"
-extensions = ["r", "R", "Rmd"]
-line_comments = ["#"]
-strings = [["\"", "\""], ["'", "'"]]
-
-[[language]]
-name = "Julia"
-extensions = ["jl"]
-line_comments = ["#"]
-block_comments = [["#=", "=#"]]
-strings = [["\"\"\"", "\"\"\""], ["\"", "\""]]
-
-[[language]]
-name = "Tcl"
-extensions = ["tcl"]
-line_comments = ["#"]
-strings = [["\"", "\""]]
-
-# ────────── Functional ──────────
-
-[[language]]
-name = "Haskell"
-extensions = ["hs", "lhs"]
-line_comments = ["--"]
-block_comments = [["{-", "-}"]]
 strings = [["\"", "\""]]
 
 [[language]]
-name = "OCaml"
-extensions = ["ml", "mli"]
-block_comments = [["(*", "*)"]]
+name = "HEEx"
+extensions = ["heex"]
+block_comments = [["<%!--", "--%>"]]
 strings = [["\"", "\""]]
 
 [[language]]
-name = "F#"
-extensions = ["fs", "fsi", "fsx"]
-line_comments = ["//"]
-block_comments = [["(*", "*)"]]
-strings = [["\"\"\"", "\"\"\""], ["\"", "\""]]
-
-[[language]]
-name = "Elixir"
-extensions = ["ex", "exs"]
-line_comments = ["#"]
-strings = [["\"\"\"", "\"\"\""], ["\"", "\""]]
-
-[[language]]
-name = "Erlang"
-extensions = ["erl", "hrl"]
-line_comments = ["%"]
-strings = [["\"", "\""]]
-
-[[language]]
-name = "Clojure"
-extensions = ["clj", "cljs", "cljc", "edn"]
-line_comments = [";", ";;"]
-strings = [["\"", "\""]]
-
-[[language]]
-name = "Scheme"
-extensions = ["scm", "ss"]
-line_comments = [";"]
-strings = [["\"", "\""]]
-
-[[language]]
-name = "Common Lisp"
-extensions = ["lisp", "lsp", "cl"]
-line_comments = [";", ";;"]
-block_comments = [["#|", "|#"]]
-strings = [["\"", "\""]]
-
-[[language]]
-name = "Racket"
-extensions = ["rkt"]
-line_comments = [";"]
-strings = [["\"", "\""]]
-
-# ────────── Shell-family ──────────
-
-[[language]]
-name = "Shell"
-extensions = ["sh", "bash", "zsh", "ksh"]
-line_comments = ["#"]
-strings = [["\"", "\""], ["'", "'"]]
-
-[[language]]
-name = "Fish"
-extensions = ["fish"]
-line_comments = ["#"]
-strings = [["\"", "\""], ["'", "'"]]
-
-[[language]]
-name = "PowerShell"
-extensions = ["ps1", "psm1", "psd1"]
-line_comments = ["#"]
-block_comments = [["<#", "#>"]]
-strings = [["\"", "\""], ["'", "'"]]
-
-# ────────── Markup / data ──────────
+name = "HEX"
+extensions = ["hex"]
 
 [[language]]
 name = "HTML"
 extensions = ["html", "htm"]
 block_comments = [["<!--", "-->"]]
-strings = [["\"", "\""], ["'", "'"]]
+strings = [["\"", "\""]]
 
 [[language]]
-name = "XML"
-extensions = ["xml", "svg", "xhtml"]
+name = "Hamlet"
+extensions = ["hamlet"]
 block_comments = [["<!--", "-->"]]
-strings = [["\"", "\""], ["'", "'"]]
+strings = [["\"", "\""]]
 
 [[language]]
-name = "CSS"
-extensions = ["css"]
-block_comments = [["/*", "*/"]]
-strings = [["\"", "\""], ["'", "'"]]
+name = "Handlebars"
+extensions = ["hbs", "handlebars"]
+block_comments = [["<!--", "-->"], ["{{!", "}}"]]
+strings = [["\\\"", "\\\""], ["'", "'"]]
 
 [[language]]
-name = "SCSS"
-extensions = ["scss"]
+name = "Happy"
+extensions = ["y", "ly"]
+
+[[language]]
+name = "Hare"
+extensions = ["ha"]
+line_comments = ["//"]
+strings = [["\"", "\""], ["`", "`"]]
+
+[[language]]
+name = "Haskell"
+extensions = ["hs"]
+line_comments = ["--"]
+block_comments = [["{-", "-}"]]
+
+[[language]]
+name = "Haxe"
+extensions = ["hx"]
 line_comments = ["//"]
 block_comments = [["/*", "*/"]]
-strings = [["\"", "\""], ["'", "'"]]
+strings = [["\"", "\""]]
 
 [[language]]
-name = "Sass"
-extensions = ["sass"]
-line_comments = ["//"]
-strings = [["\"", "\""], ["'", "'"]]
-
-[[language]]
-name = "Less"
-extensions = ["less"]
+name = "IDL"
+extensions = ["idl", "webidl", "widl"]
 line_comments = ["//"]
 block_comments = [["/*", "*/"]]
-strings = [["\"", "\""], ["'", "'"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "IEC61131-3"
+extensions = ["scl", "s7dcl"]
+line_comments = ["//"]
+block_comments = [["(*", "*)"], ["/*", "*/"]]
+strings = [["'", "'"], ["\"", "\""]]
+
+[[language]]
+name = "INI"
+extensions = ["ini"]
+line_comments = ["#", ";"]
+
+[[language]]
+name = "Idris"
+extensions = ["idr", "lidr"]
+line_comments = ["--"]
+block_comments = [["{-", "-}"]]
+strings = [["\\\"", "\\\""], ["\\\"\\\"\\\"", "\\\"\\\"\\\""]]
+
+[[language]]
+name = "Intel HEX"
+extensions = ["ihex"]
+
+[[language]]
+name = "Isabelle"
+extensions = ["thy"]
+line_comments = ["--"]
+block_comments = [["{*", "*}"], ["(*", "*)"], ["‹", "›"], ["\\\\<open>", "\\\\<close>"]]
+strings = [["''", "''"]]
+
+[[language]]
+name = "JAI"
+extensions = ["jai"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "JCL"
+extensions = ["jcl", "jcls"]
+line_comments = ["//*"]
+strings = [["'", "'"]]
 
 [[language]]
 name = "JSON"
 extensions = ["json"]
-strings = [["\"", "\""]]
+
+[[language]]
+name = "JSON5"
+extensions = ["json5"]
+line_comments = ["//"]
 
 [[language]]
 name = "JSONC"
@@ -346,68 +909,1011 @@ block_comments = [["/*", "*/"]]
 strings = [["\"", "\""]]
 
 [[language]]
-name = "YAML"
-extensions = ["yaml", "yml"]
-line_comments = ["#"]
-strings = [["\"", "\""], ["'", "'"]]
+name = "JSONL"
+extensions = ["jsonl"]
 
 [[language]]
-name = "TOML"
-extensions = ["toml"]
-line_comments = ["#"]
-strings = [["\"\"\"", "\"\"\""], ["'''", "'''"], ["\"", "\""], ["'", "'"]]
-
-[[language]]
-name = "INI"
-extensions = ["ini", "cfg", "conf"]
-line_comments = [";", "#"]
-strings = [["\"", "\""], ["'", "'"]]
-
-[[language]]
-name = "Markdown"
-extensions = ["md", "markdown"]
-block_comments = [["<!--", "-->"]]
-strings = []
-
-[[language]]
-name = "reStructuredText"
-extensions = ["rst"]
-strings = []
-
-[[language]]
-name = "AsciiDoc"
-extensions = ["adoc", "asciidoc"]
+name = "JSX"
+extensions = ["jsx"]
 line_comments = ["//"]
-strings = []
-
-# ────────── Data / DSLs ──────────
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
 
 [[language]]
-name = "SQL"
-extensions = ["sql"]
-line_comments = ["--"]
+name = "Jade"
+extensions = ["jade"]
+line_comments = ["//-"]
+
+[[language]]
+name = "Janet"
+extensions = ["janet"]
+line_comments = ["#"]
+strings = [["\"", "\""], ["``", "``"], ["@\"", "\""]]
+
+[[language]]
+name = "Java"
+extensions = ["java"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "JavaScript"
+extensions = ["js", "cjs", "mjs"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""], ["'", "'"], ["`", "`"]]
+
+[[language]]
+name = "JavaServer Pages"
+extensions = ["jsp"]
+line_comments = ["//"]
 block_comments = [["/*", "*/"]]
 strings = [["\"", "\""], ["'", "'"]]
 
 [[language]]
-name = "GraphQL"
-extensions = ["graphql", "gql"]
-line_comments = ["#"]
-strings = [["\"\"\"", "\"\"\""], ["\"", "\""]]
+name = "Jenkins Buildfile"
+extensions = ["jenkinsfile"]
 
 [[language]]
-name = "HCL"
-extensions = ["hcl", "tf", "tfvars"]
+name = "Jinja"
+extensions = ["jinja", "j2", "jinja2"]
+block_comments = [["{#", "#}"]]
+
+[[language]]
+name = "Jsonnet"
+extensions = ["jsonnet", "libsonnet"]
+line_comments = ["#", "//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""], ["'", "'"], ["|||", "|||"], ["@\"", "\""], ["@'", "'"]]
+
+[[language]]
+name = "Julia"
+extensions = ["jl"]
+line_comments = ["#"]
+block_comments = [["#=", "=#"]]
+strings = [["\\\"", "\\\""], ["\\\"\\\"\\\"", "\\\"\\\"\\\""]]
+
+[[language]]
+name = "Julius"
+extensions = ["julius"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Jupyter"
+extensions = ["ipynb", "jpynb"]
+
+[[language]]
+name = "Just"
+extensions = ["justfile"]
+line_comments = ["#"]
+strings = [["\\\"", "\\\""]]
+
+[[language]]
+name = "K"
+extensions = ["k"]
+line_comments = ["/"]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Korn Shell"
+extensions = ["ksh"]
+filenames = [".kshrc"]
+line_comments = ["#"]
+strings = [["\\\"", "\\\""], ["'", "'"]]
+
+[[language]]
+name = "Kotlin"
+extensions = ["kt", "kts"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Koto"
+extensions = ["koto"]
+line_comments = ["#"]
+block_comments = [["#-", "-#"]]
+strings = [["\"", "\""], ["'", "'"]]
+
+[[language]]
+name = "LALRPOP"
+extensions = ["lalrpop"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""], ["\\\"", "\\\""], ["\\\"#", "#\\\""], ["\\\"##", "r##\\\""], ["\\\"#", "r#\\\""]]
+
+[[language]]
+name = "LD Script"
+extensions = ["lds"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "LESS"
+extensions = ["less"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "LEX"
+extensions = ["l"]
+block_comments = [["/*", "*/"]]
+
+[[language]]
+name = "LLVM IR"
+extensions = ["ll"]
+line_comments = [";"]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "LOLCODE"
+extensions = ["lol", "lols"]
+line_comments = ["BTW"]
+block_comments = [["OBTW", "TLDR"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "LaTeX"
+extensions = ["tex"]
+line_comments = ["%"]
+
+[[language]]
+name = "Lean"
+extensions = ["lean", "hlean"]
+line_comments = ["--"]
+block_comments = [["/-", "-/"]]
+
+[[language]]
+name = "License"
+filenames = ["license", "licence", "copying", "copying3", "unlicense", "unlicence", "license-apache", "licence-apache", "license-mit", "licence-mit", "copyright"]
+
+[[language]]
+name = "Lisp"
+extensions = ["lisp", "lsp"]
+line_comments = [";"]
+block_comments = [["#|", "|#"]]
+
+[[language]]
+name = "LiveScript"
+extensions = ["ls"]
+line_comments = ["#"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""], ["'", "'"]]
+
+[[language]]
+name = "Lua"
+extensions = ["lua"]
+line_comments = ["--"]
+block_comments = [["--[[", "]]"], ["--[=[", "]=]"], ["--[==[", "]==]"], ["--[===[", "]===]"], ["--[====[", "]====]"], ["--[=====[", "]=====]"]]
+strings = [["\"", "\""], ["'", "'"], ["]]", "[["]]
+
+[[language]]
+name = "Luau"
+extensions = ["luau"]
+line_comments = ["--"]
+block_comments = [["--[[", "]]"], ["--[=[", "]=]"], ["--[==[", "]==]"], ["--[===[", "]===]"], ["--[====[", "]====]"], ["--[=====[", "]=====]"]]
+strings = [["\"", "\""], ["'", "'"], ["`", "`"], ["]]", "[["]]
+
+[[language]]
+name = "Lucius"
+extensions = ["lucius"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Luna"
+extensions = ["luna"]
+line_comments = ["#"]
+strings = [["\\\"", "\\\""], ["'", "'"]]
+
+[[language]]
+name = "MATLAB"
+extensions = ["m"]
+line_comments = ["%"]
+block_comments = [["%{", "}%"]]
+strings = [["'", "'"]]
+
+[[language]]
+name = "MDX"
+extensions = ["mdx"]
+
+[[language]]
+name = "MLIR"
+extensions = ["mlir"]
+line_comments = ["//"]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "MQL Header"
+extensions = ["mqh"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "MQL4"
+extensions = ["mq4"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "MQL5"
+extensions = ["mq5"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "MSBuild"
+extensions = ["csproj", "vbproj", "fsproj", "vcproj", "vcxproj", "vcxproj.filters", "ilproj", "myapp", "props", "rdlc", "resx", "settings", "sln", "targets"]
+block_comments = [["<!--", "-->"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "MUMPS"
+extensions = ["mps"]
+line_comments = [";"]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Macromedia eXtensible Markup Language"
+extensions = ["mxml"]
+
+[[language]]
+name = "Madlang"
+extensions = ["mad"]
+line_comments = ["#"]
+block_comments = [["{#", "#}"]]
+
+[[language]]
+name = "Makefile"
+extensions = ["makefile", "mak", "mk", "bp"]
+filenames = ["makefile", "gnumakefile"]
+line_comments = ["#"]
+
+[[language]]
+name = "Mako"
+extensions = ["mako", "mao"]
+line_comments = ["##"]
+block_comments = [["<%doc>", "</%doc>"]]
+
+[[language]]
+name = "Markdown"
+extensions = ["md", "markdown"]
+
+[[language]]
+name = "Max"
+extensions = ["maxpat"]
+
+[[language]]
+name = "Meson"
+extensions = ["meson.build", "meson_options.txt"]
+line_comments = ["#"]
+strings = [["'", "'"], ["'''", "'''"]]
+
+[[language]]
+name = "Metal"
+extensions = ["metal"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Modula3"
+extensions = ["m3", "mg", "ig", "i3"]
+line_comments = ["#"]
+block_comments = [["(*", "*)"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Module-Definition"
+extensions = ["def"]
+line_comments = [";"]
+
+[[language]]
+name = "Mog"
+extensions = ["mog"]
+line_comments = ["//"]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Mojo"
+extensions = ["mojo"]
+line_comments = ["#"]
+strings = [["\"", "\""], ["'", "'"], ["r\"", "\""], ["t\"", "\""], ["rt\"", "\""], ["\"\"\"", "\"\"\""], ["'''", "'''"], ["r\"\"\"", "\"\"\""], ["r'''", "'''"], ["t\"\"\"", "\"\"\""]]
+
+[[language]]
+name = "Monkey C"
+extensions = ["mc"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Moonbit"
+extensions = ["mbt"]
+line_comments = ["//"]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Move"
+extensions = ["move"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Mustache"
+extensions = ["mustache"]
+block_comments = [["{{!", "}}"]]
+strings = [["\\\"", "\\\""], ["'", "'"]]
+
+[[language]]
+name = "Nature"
+extensions = ["n"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["'", "'"], ["\"", "\""], ["`", "`"]]
+
+[[language]]
+name = "Nial"
+extensions = ["ndf"]
+line_comments = ["%"]
+strings = [["'", "'"]]
+
+[[language]]
+name = "Nim"
+extensions = ["nim"]
+line_comments = ["#"]
+strings = [["\\\"", "\\\""], ["\\\"\\\"\\\"", "\\\"\\\"\\\""]]
+
+[[language]]
+name = "Nix"
+extensions = ["nix"]
+line_comments = ["#"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Nushell"
+extensions = ["nu"]
+line_comments = ["#"]
+strings = [["\"", "\""], ["'", "'"]]
+
+[[language]]
+name = "OCaml"
+extensions = ["ml", "mli"]
+block_comments = [["(*", "*)"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Objective C"
+extensions = ["m"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Objective C++"
+extensions = ["mm"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Odin"
+extensions = ["odin"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Opalang"
+extensions = ["opa"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "OpenQASM"
+extensions = ["qasm"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "OpenTofu"
+extensions = ["tofu"]
+line_comments = ["#", "//"]
+block_comments = [["/*", "*/"]]
+
+[[language]]
+name = "Org"
+extensions = ["org"]
+line_comments = ["# "]
+
+[[language]]
+name = "Oz"
+extensions = ["oz"]
+line_comments = ["%"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "PHP"
+extensions = ["php"]
+line_comments = ["#", "//"]
+block_comments = [["/*", "*/"]]
+strings = [["\\\"", "\\\""], ["'", "'"]]
+
+[[language]]
+name = "PKGBUILD"
+extensions = ["pkgbuild"]
+
+[[language]]
+name = "PL/SQL"
+extensions = ["fnc", "pkb", "pks", "prc", "trg", "vw"]
+line_comments = ["--"]
+block_comments = [["/*", "*/"]]
+strings = [["'", "'"]]
+
+[[language]]
+name = "POML"
+extensions = ["poml"]
+block_comments = [["<!--", "-->"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "PRQL"
+extensions = ["prql"]
+line_comments = ["#"]
+strings = [["\"", "\""], ["'", "'"], ["\"\"\"", "\"\"\""], ["'''", "'''"], ["r\"\"\"", "\"\"\""], ["r'''", "'''"]]
+
+[[language]]
+name = "PSL Assertion"
+extensions = ["psl"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Pascal"
+extensions = ["pas"]
+line_comments = ["//"]
+block_comments = [["{", "}"], ["(*", "*)"]]
+strings = [["'", "'"]]
+
+[[language]]
+name = "Patch"
+extensions = ["patch", "diff"]
+
+[[language]]
+name = "Perl"
+extensions = ["pl", "plx", "pm"]
+line_comments = ["#"]
+block_comments = [["=pod", "=cut"]]
+strings = [["\"", "\""], ["'", "'"]]
+
+[[language]]
+name = "Phoenix LiveView"
+extensions = ["heex", "leex"]
+line_comments = ["#", "<!--"]
+block_comments = [["<!--", "-->"]]
+strings = [["\\\"\\\"\\\"", "\\\"\\\"\\\""], ["\\\"", "\\\""], ["'''", "'''"], ["'", "'"]]
+
+[[language]]
+name = "Picat"
+extensions = ["pi"]
+line_comments = ["%"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Pkl"
+extensions = ["pkl"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""], ["\"#", "#\""], ["\"##", "##\""], ["\"\"\"", "\"\"\""]]
+
+[[language]]
+name = "Plain Text"
+extensions = ["text", "txt"]
+
+[[language]]
+name = "Polly"
+extensions = ["polly"]
+block_comments = [["<!--", "-->"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Pony"
+extensions = ["pony"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""], ["\\\"\\\"\\\"", "\\\"\\\"\\\""]]
+
+[[language]]
+name = "PostScript"
+extensions = ["ps"]
+line_comments = ["%"]
+strings = [["(", ")"], ["<", ">"], ["<~", "~>"]]
+
+[[language]]
+name = "Powershell"
+extensions = ["ps1", "psm1"]
+line_comments = ["#"]
+block_comments = [["<#", "#>"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Processing"
+extensions = ["pde"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Prolog"
+extensions = ["p", "pro"]
+line_comments = ["%"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Properties File"
+extensions = ["properties"]
+line_comments = ["#"]
+
+[[language]]
+name = "Protocol Buffers"
+extensions = ["proto"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+
+[[language]]
+name = "Puppet"
+extensions = ["pp"]
+line_comments = ["#"]
+block_comments = [["=begin", "=end"]]
+strings = [["\\\"", "\\\""], ["'", "'"]]
+
+[[language]]
+name = "PureScript"
+extensions = ["purs"]
+line_comments = ["--"]
+block_comments = [["{-", "-}"]]
+
+[[language]]
+name = "Python"
+extensions = ["py", "pyw", "pyi"]
+line_comments = ["#"]
+strings = [["\"", "\""], ["'", "'"], ["r'", "'"], ["r\"", "\""], ["\"\"\"", "\"\"\""], ["'''", "'''"], ["r\"\"\"", "\"\"\""], ["r'''", "'''"], ["f\"\"\"", "\"\"\""], ["f'''", "'''"]]
+
+[[language]]
+name = "Q#"
+extensions = ["qs"]
+line_comments = ["//"]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "QCL"
+extensions = ["qcl"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "QML"
+extensions = ["qml"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "R"
+extensions = ["r"]
+line_comments = ["#"]
+
+[[language]]
+name = "RAML"
+extensions = ["raml", "rml"]
+line_comments = ["#"]
+
+[[language]]
+name = "Racket"
+extensions = ["rkt"]
+line_comments = [";"]
+block_comments = [["|#", "#|"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Rakefile"
+filenames = ["rake", "rakefile"]
+line_comments = ["#"]
+block_comments = [["=begin", "=end"]]
+strings = [["\\\"", "\\\""], ["'", "'"]]
+
+[[language]]
+name = "Raku"
+extensions = ["raku", "rakumod", "rakutest", "rakudoc", "t"]
+line_comments = ["#"]
+block_comments = [["=begin", "=end"], ["#`(", ")"], ["#`[", "]"], ["#`{", "}"], ["#`｢", "｣"]]
+strings = [["\\\"", "\\\""], ["'", "'"], ["„", "“"], ["«", "»"], ["<<", ">>"], ["“", "”"], ["’", "‘"], ["｢", "｣"]]
+
+[[language]]
+name = "Razor"
+extensions = ["cshtml", "razor"]
+block_comments = [["<!--", "-->"], ["@*", "*@"]]
+
+[[language]]
+name = "ReScript"
+extensions = ["res", "resi"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "ReStructuredText"
+extensions = ["rst"]
+
+[[language]]
+name = "ReasonML"
+extensions = ["re", "rei"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Rebol"
+extensions = ["reb"]
+line_comments = [";"]
+block_comments = [["{", "}"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Redscript"
+extensions = ["reds"]
+line_comments = ["//", "///"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Report Definition Language"
+extensions = ["rdl"]
+block_comments = [["<!--", "-->"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Rich Text Format"
+extensions = ["rtf"]
+
+[[language]]
+name = "Robot Framework"
+extensions = ["robot"]
+
+[[language]]
+name = "Ruby"
+extensions = ["rb"]
+line_comments = ["#"]
+block_comments = [["=begin", "=end"]]
+strings = [["\\\"", "\\\""], ["'", "'"]]
+
+[[language]]
+name = "Ruby HTML"
+extensions = ["rhtml", "erb"]
+block_comments = [["<!--", "-->"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Rust"
+extensions = ["rs"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "SAS"
+extensions = ["sas"]
+line_comments = ["*"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""], ["'", "'"]]
+
+[[language]]
+name = "SKILL"
+extensions = ["il"]
+line_comments = [";"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "SNOBOL"
+extensions = ["sno"]
+line_comments = ["*"]
+strings = [["\"", "\""], ["'", "'"]]
+
+[[language]]
+name = "SPDX"
+extensions = ["spdx"]
+
+[[language]]
+name = "SPL"
+extensions = ["spl"]
+block_comments = [["\"", "\";"]]
+strings = [["\"", "\""], ["^", " "], ["^", ">"], ["^", ":"]]
+
+[[language]]
+name = "SQL"
+extensions = ["sql", "dml", "ddl", "dql"]
+line_comments = ["--"]
+block_comments = [["/*", "*/"]]
+strings = [["'", "'"]]
+
+[[language]]
+name = "SRecode Template"
+extensions = ["srt"]
+line_comments = [";;"]
+
+[[language]]
+name = "SVG"
+extensions = ["svg"]
+block_comments = [["<!--", "-->"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Sass"
+extensions = ["sass", "scss"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Scala"
+extensions = ["sc", "scala"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Scallop"
+extensions = ["scl"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Scheme"
+extensions = ["scm", "ss"]
+line_comments = [";"]
+block_comments = [["#|", "|#"]]
+
+[[language]]
+name = "Scons"
+extensions = ["csig", "sconstruct", "sconscript"]
+line_comments = ["#"]
+strings = [["\\\"", "\\\""], ["'", "'"], ["\\\"\\\"\\\"", "\\\"\\\"\\\""], ["'''", "'''"]]
+
+[[language]]
+name = "Seed7"
+extensions = ["sd7", "s7i"]
+line_comments = ["#"]
+block_comments = [["(*", "*)"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Shell"
+extensions = ["sh"]
+filenames = [".tcshrc"]
+line_comments = ["#"]
+strings = [["\\\"", "\\\""], ["'", "'"]]
+
+[[language]]
+name = "Sieve"
+extensions = ["sieve"]
+line_comments = ["#"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Slang"
+extensions = ["slang"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Slint"
+extensions = ["slint"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Smalltalk"
+extensions = ["cs.st", "pck.st"]
+block_comments = [["\"", "\""]]
+strings = [["'", "'"]]
+
+[[language]]
+name = "Smarty Template"
+extensions = ["tpl"]
+block_comments = [["{*", "*}"]]
+
+[[language]]
+name = "Snakemake"
+extensions = ["smk", "rules"]
+filenames = ["snakefile"]
+line_comments = ["#"]
+strings = [["\"", "\""], ["'", "'"], ["\"\"\"", "\"\"\""], ["'''", "'''"], ["r\"\"\"", "\"\"\""], ["r'''", "'''"]]
+
+[[language]]
+name = "Softbridge Basic"
+extensions = ["sbl"]
+line_comments = ["'"]
+strings = [["\\\"", "\\\""]]
+
+[[language]]
+name = "Solidity"
+extensions = ["sol"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Specman e"
+extensions = ["e"]
+line_comments = ["--", "//"]
+block_comments = [["'>", "<'"]]
+
+[[language]]
+name = "Spice Netlist"
+extensions = ["ckt"]
+line_comments = ["*"]
+
+[[language]]
+name = "Stan"
+extensions = ["stan"]
 line_comments = ["#", "//"]
 block_comments = [["/*", "*/"]]
 strings = [["\"", "\""]]
 
 [[language]]
-name = "Protobuf"
-extensions = ["proto"]
+name = "Standard ML (SML)"
+extensions = ["sml"]
+block_comments = [["(*", "*)"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Stata"
+extensions = ["do", "ado"]
+line_comments = ["//", "*"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""], ["`\"", "\"'"]]
+
+[[language]]
+name = "Stylus"
+extensions = ["styl"]
 line_comments = ["//"]
 block_comments = [["/*", "*/"]]
-strings = [["\"", "\""], ["'", "'"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Svelte"
+extensions = ["svelte"]
+line_comments = ["//"]
+block_comments = [["<!--", "-->"], ["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Swift"
+extensions = ["swift"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Swig"
+extensions = ["i"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "SystemVerilog"
+extensions = ["sv", "svh"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Systemd"
+extensions = ["automount", "device", "link", "mount", "path", "scope", "service", "slice", "socket", "swap", "target", "timer"]
+line_comments = ["#"]
+
+[[language]]
+name = "TCL"
+extensions = ["tcl"]
+line_comments = ["#"]
+strings = [["\\\"", "\\\""], ["'", "'"]]
+
+[[language]]
+name = "TL"
+extensions = ["tl"]
+line_comments = ["//", "///"]
+block_comments = [["/*", "*/"]]
+
+[[language]]
+name = "TOML"
+extensions = ["toml"]
+line_comments = ["#"]
+strings = [["\\\"", "\\\""], ["'", "'"], ["\\\"\\\"\\\"", "\\\"\\\"\\\""], ["'''", "'''"]]
+
+[[language]]
+name = "TOON"
+extensions = ["toon"]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "TTCN-3"
+extensions = ["ttcn", "ttcn3", "ttcnpp"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Tact"
+extensions = ["tact"]
+line_comments = ["//", "///"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "TaskPaper"
+extensions = ["taskpaper"]
+
+[[language]]
+name = "TeX"
+extensions = ["tex", "sty"]
+line_comments = ["%"]
+
+[[language]]
+name = "Teal"
+extensions = ["teal"]
+line_comments = ["//"]
+
+[[language]]
+name = "Templ"
+extensions = ["templ"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""], ["`", "`"]]
+
+[[language]]
+name = "TemplateToolkit"
+extensions = ["tt", "tt2"]
+block_comments = [["[%#", "%]"]]
+
+[[language]]
+name = "Tera"
+extensions = ["tera"]
+block_comments = [["<!--", "-->"], ["{#", "#}"]]
+
+[[language]]
+name = "Terraform"
+extensions = ["tf", "tfvars", "tf.json"]
+line_comments = ["#", "//"]
+block_comments = [["/*", "*/"]]
+
+[[language]]
+name = "Textile"
+extensions = ["textile"]
+line_comments = ["###. "]
+block_comments = [["###.. ", "p. "]]
 
 [[language]]
 name = "Thrift"
@@ -417,87 +1923,297 @@ block_comments = [["/*", "*/"]]
 strings = [["\"", "\""], ["'", "'"]]
 
 [[language]]
-name = "Solidity"
-extensions = ["sol"]
+name = "Treetop"
+extensions = ["treetop", "tt"]
+line_comments = ["#"]
+strings = [["\"", "\""], ["'", "'"]]
+
+[[language]]
+name = "Twig Template"
+extensions = ["twig"]
+
+[[language]]
+name = "TypeScript"
+extensions = ["ts", "tsx", "cts", "mts"]
 line_comments = ["//"]
 block_comments = [["/*", "*/"]]
-strings = [["\"", "\""], ["'", "'"]]
-
-# ────────── Build / infra ──────────
+strings = [["\"", "\""], ["'", "'"], ["`", "`"]]
 
 [[language]]
-name = "Dockerfile"
-extensions = ["dockerfile"]
-filenames = ["Dockerfile", "Containerfile"]
-line_comments = ["#"]
-strings = [["\"", "\""], ["'", "'"]]
+name = "TypeScript Typings"
+extensions = ["d.ts"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""], ["'", "'"], ["`", "`"]]
 
 [[language]]
-name = "Docker ignore"
-filenames = [".dockerignore"]
-line_comments = ["#"]
-strings = []
+name = "TypeSpec"
+extensions = ["tsp"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""], ["\"\"\"", "\"\"\""]]
 
 [[language]]
-name = "Makefile"
-extensions = ["mk"]
-filenames = ["Makefile", "makefile", "GNUmakefile"]
-line_comments = ["#"]
-strings = [["\"", "\""], ["'", "'"]]
+name = "Typst"
+extensions = ["typ"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\\\"", "\\\""]]
 
 [[language]]
-name = "CMake"
-extensions = ["cmake"]
-filenames = ["CMakeLists.txt"]
-line_comments = ["#"]
+name = "Unreal Script"
+extensions = ["uc", "uci", "upkg"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
 strings = [["\"", "\""]]
 
 [[language]]
-name = "Bazel"
-extensions = ["bazel", "bzl"]
-filenames = ["BUILD", "WORKSPACE", "BUILD.bazel", "WORKSPACE.bazel"]
-line_comments = ["#"]
-strings = [["\"\"\"", "\"\"\""], ["'''", "'''"], ["\"", "\""], ["'", "'"]]
+name = "Up"
+extensions = ["up"]
+line_comments = ["//"]
+strings = [["\"", "\""], ["`", "`"]]
 
 [[language]]
-name = "Just"
-extensions = ["justfile"]
-filenames = ["Justfile", "justfile"]
-line_comments = ["#"]
-strings = [["\"", "\""], ["'", "'"]]
+name = "Ur/Web"
+extensions = ["ur", "urs"]
+block_comments = [["(*", "*)"]]
+strings = [["\"", "\""]]
 
 [[language]]
-name = "Ruby Gemfile"
-filenames = ["Gemfile", "Rakefile"]
-extensions = ["gemspec"]
+name = "Ur/Web Project"
+extensions = ["urp"]
 line_comments = ["#"]
-strings = [["\"", "\""], ["'", "'"]]
 
 [[language]]
-name = "Git Config"
-filenames = [".gitignore", ".gitattributes", ".gitmodules"]
-line_comments = ["#"]
-strings = []
+name = "V"
+extensions = ["v"]
+line_comments = ["//"]
+strings = [["\"", "\""], ["`", "`"]]
 
 [[language]]
-name = "Editor Config"
-filenames = [".editorconfig"]
-line_comments = [";", "#"]
-strings = []
+name = "VHDL"
+extensions = ["vhd", "vhdl"]
+line_comments = ["--"]
 
-# ────────── Other ──────────
+[[language]]
+name = "Vala"
+extensions = ["vala"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""], ["@\"", "\""], ["\"\"\"", "\"\"\""]]
+
+[[language]]
+name = "Varnish Configuration"
+extensions = ["vcl"]
+line_comments = ["#", "//"]
+block_comments = [["/*", "*/"]]
+
+[[language]]
+name = "Verilog"
+extensions = ["vg", "vh", "v"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Verilog Args File"
+extensions = ["irunargs", "xrunargs"]
+
+[[language]]
+name = "Vertex Shader File"
+extensions = ["vsh"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
 
 [[language]]
 name = "Vim Script"
-extensions = ["vim"]
-line_comments = ["\""]
-strings = [["'", "'"]]
+extensions = ["vim", "vimrc", "gvimrc"]
+filenames = ["_vimrc", ".vimrc", "_gvimrc", ".gvimrc", "vimrc", "gvimrc"]
+line_comments = ["\"", "#"]
+strings = [["\\\"", "\\\""], ["'", "'"]]
 
 [[language]]
-name = "Emacs Lisp"
-extensions = ["el"]
-line_comments = [";"]
+name = "Visual Basic"
+extensions = ["vb"]
+line_comments = ["'"]
+strings = [["\\\"", "\\\""]]
+
+[[language]]
+name = "Visual Basic for Applications"
+extensions = ["cls"]
+line_comments = ["'"]
+strings = [["\\\"", "\\\""]]
+
+[[language]]
+name = "Vue"
+extensions = ["vue"]
+line_comments = ["//"]
+block_comments = [["<!--", "-->"], ["/*", "*/"]]
+strings = [["\"", "\""], ["'", "'"]]
+
+[[language]]
+name = "W.I.S.E. Jobfile"
+extensions = ["fgmj"]
+
+[[language]]
+name = "Web Services Description Language"
+extensions = ["wsdl"]
+block_comments = [["<!--", "-->"]]
 strings = [["\"", "\""]]
+
+[[language]]
+name = "WebGPU Enhanced Shading Language"
+extensions = ["wesl"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+
+[[language]]
+name = "WebGPU Shading Language"
+extensions = ["wgsl"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+
+[[language]]
+name = "Windows Resource-Definition Script"
+extensions = ["rc"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Wolfram"
+extensions = ["nb", "wl"]
+block_comments = [["(*", "*)"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Wren"
+extensions = ["wren"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "XAML"
+extensions = ["xaml"]
+block_comments = [["<!--", "-->"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "XHTML"
+extensions = ["xhtml", "xhtm", "xht"]
+block_comments = [["<!--", "-->"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "XML"
+extensions = ["xml"]
+block_comments = [["<!--", "-->"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "XML Schema"
+extensions = ["xsd"]
+
+[[language]]
+name = "XMake"
+filenames = ["xmake.lua", "xpack.lua"]
+line_comments = ["--"]
+block_comments = [["--[[", "]]"], ["--[=[", "]=]"], ["--[==[", "]==]"], ["--[===[", "]===]"], ["--[====[", "]====]"], ["--[=====[", "]=====]"]]
+strings = [["\"", "\""], ["]]", "[["]]
+
+[[language]]
+name = "Xcode Config"
+extensions = ["xcconfig"]
+line_comments = ["//"]
+
+[[language]]
+name = "Xtend"
+extensions = ["xtend"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "YAML"
+extensions = ["yaml", "yml"]
+line_comments = ["#"]
+
+[[language]]
+name = "Yarn"
+extensions = ["yarn"]
+
+[[language]]
+name = "Zig"
+extensions = ["zig"]
+line_comments = ["//"]
+strings = [["\\\"", "\\\""], ["\\\\", "\n"]]
+
+[[language]]
+name = "ZoKrates"
+extensions = ["zok"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+
+[[language]]
+name = "Zsh"
+extensions = ["zsh", "zshenv", "zlogin", "zlogout", "zprofile", "zshrc"]
+filenames = [".zshenv", ".zlogin", ".zlogout", ".zprofile", ".zshrc"]
+line_comments = ["#"]
+strings = [["\\\"", "\\\""], ["'", "'"]]
+
+[[language]]
+name = "bait"
+extensions = ["bt"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["'", "'"], ["\"", "\""], ["`", "`"]]
+
+[[language]]
+name = "gitignore"
+filenames = [".gitignore"]
+line_comments = ["#"]
+
+[[language]]
+name = "hoon"
+extensions = ["hoon"]
+line_comments = ["::"]
+strings = [["\"", "\""], ["'", "'"], ["```", "```"]]
+
+[[language]]
+name = "ignore"
+filenames = [".ignore"]
+line_comments = ["#"]
+
+[[language]]
+name = "jq"
+extensions = ["jq"]
+line_comments = ["#"]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "m4"
+extensions = ["m4"]
+line_comments = ["#"]
+
+[[language]]
+name = "nuspec"
+extensions = ["nuspec"]
+block_comments = [["<!--", "-->"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "sed"
+extensions = ["sed"]
+line_comments = ["#"]
+
+[[language]]
+name = "wenyan"
+extensions = ["wy"]
+line_comments = ["批曰", "注曰", "疏曰"]
+strings = [["」」", "「「"]]
+
 
 [[language]]
 name = "LSL"
@@ -505,3 +2221,20 @@ extensions = ["lsl"]
 line_comments = ["//"]
 block_comments = [["/*", "*/"]]
 strings = [["\"", "\""]]
+
+[[language]]
+name = "Git Config"
+filenames = [".gitignore", ".gitattributes", ".gitmodules"]
+line_comments = ["#"]
+
+[[language]]
+name = "Editor Config"
+filenames = [".editorconfig"]
+line_comments = [";", "#"]
+
+[[language]]
+name = "JSX"
+extensions = ["jsx"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""], ["'", "'"], ["`", "`"]]

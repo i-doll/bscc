@@ -66,7 +66,8 @@ impl Registry {
                 .insert(ext.to_ascii_lowercase(), Arc::clone(&entry));
         }
         for fname in &entry.filenames {
-            self.by_filename.insert(fname.clone(), Arc::clone(&entry));
+            self.by_filename
+                .insert(fname.to_ascii_lowercase(), Arc::clone(&entry));
         }
     }
 
@@ -81,7 +82,9 @@ impl Registry {
     }
 
     pub fn lookup_by_filename(&self, name: &str) -> Option<&LanguageEntry> {
-        self.by_filename.get(name).map(AsRef::as_ref)
+        self.by_filename
+            .get(&name.to_ascii_lowercase())
+            .map(AsRef::as_ref)
     }
 
     pub fn lookup_by_path(&self, path: &Path) -> Option<&LanguageEntry> {

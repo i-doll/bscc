@@ -2,8 +2,9 @@
 
 A from-scratch code-metrics tool inspired by [scc]. Two-tier engine:
 tree-sitter where grammars are available (Rust, Python, TypeScript / TSX,
-Go, C, C++, Java in v1), declarative regex tokenizer everywhere else
-(~60 languages including LSL).
+Go, C, C++, Java in v1), declarative regex tokenizer for everything else
+— 360+ languages, ported from scc's `languages.json` plus bscc-specific
+additions (LSL, JSX, Git/Editor Config).
 
 Beyond LOC counting, `bscc` produces:
 
@@ -85,8 +86,11 @@ The git window applies to `bscc hotspots`.
 
 `bscc languages` lists everything registered at startup. The default
 binary ships 8 tree-sitter languages (Rust, Python, TypeScript, TSX, Go,
-C, C++, Java) and ~60 regex-tier languages including LSL — see
-[`crates/bscc-regex-tier/data/languages.toml`].
+C, C++, Java) and 360+ regex-tier languages ported from scc plus
+bscc-specific entries (LSL, JSX, Git/Editor Config) — see
+[`crates/bscc-regex-tier/data/languages.toml`]. The regex-tier file is
+auto-converted from [scc's `languages.json`][scc-langs] so file-type
+coverage tracks scc's broad inventory.
 
 ### LSL
 
@@ -151,6 +155,7 @@ Known limitations:
   primary complexity metric.
 
 [scc]: https://github.com/boyter/scc
+[scc-langs]: https://github.com/boyter/scc/blob/master/languages.json
 [mise]: https://mise.jdx.dev/
 [`crates/bscc-regex-tier/data/languages.toml`]: crates/bscc-regex-tier/data/languages.toml
 [`docs/superpowers/specs/2026-05-17-bscc-design.md`]: docs/superpowers/specs/2026-05-17-bscc-design.md
