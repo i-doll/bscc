@@ -2,9 +2,14 @@
 
 A from-scratch code-metrics tool inspired by [scc]. Two-tier engine:
 tree-sitter where grammars are available (Rust, Python, TypeScript / TSX,
-Go, C, C++, Java in v1), declarative regex tokenizer for everything else
+Go, C, C++, Java, **LSL**), declarative regex tokenizer for everything else
 — 360+ languages, ported from scc's `languages.json` plus bscc-specific
-additions (LSL, JSX, Git/Editor Config).
+additions (JSX, Git/Editor Config).
+
+The LSL grammar (`tree-sitter-lsl`) was written from scratch for this project
+and ships as its own crate alongside the bscc plugin; see
+[`crates/tree-sitter-lsl/`](crates/tree-sitter-lsl/) — it's standalone and
+ready to consume from any editor that speaks tree-sitter.
 
 Beyond LOC counting, `bscc` produces:
 
@@ -85,19 +90,20 @@ The git window applies to `bscc hotspots`.
 ## Languages
 
 `bscc languages` lists everything registered at startup. The default
-binary ships 8 tree-sitter languages (Rust, Python, TypeScript, TSX, Go,
-C, C++, Java) and 360+ regex-tier languages ported from scc plus
-bscc-specific entries (LSL, JSX, Git/Editor Config) — see
+binary ships 9 tree-sitter languages (Rust, Python, TypeScript, TSX, Go,
+C, C++, Java, LSL) and 360+ regex-tier languages ported from scc plus
+bscc-specific entries (JSX, Git/Editor Config) — see
 [`crates/bscc-regex-tier/data/languages.toml`]. The regex-tier file is
 auto-converted from [scc's `languages.json`][scc-langs] so file-type
 coverage tracks scc's broad inventory.
 
 ### LSL
 
-LSL ([Linden Scripting Language] — Second Life) is handled by the regex
-tier in v1. A dedicated `tree-sitter-lsl` grammar + `bscc-lang-lsl`
-plugin is the natural v1.1 — it would move LSL into the tree-sitter tier
-so complexity/hotspot data becomes available for it.
+LSL ([Linden Scripting Language] — Second Life) was promoted from the
+regex tier to the tree-sitter tier in v1.1, via the
+[`tree-sitter-lsl`](crates/tree-sitter-lsl/) grammar that this project
+authored. Real complexity and per-function explain output now work for
+LSL scripts the same way they do for Rust or Python.
 
 ## LSP setup
 
@@ -114,15 +120,17 @@ would any other server. The repo doesn't ship an extension.
 ```
 crates/
 ├── bscc-core            # engine + Registry + FileMetrics/Report + traits
-├── bscc-regex-tier      # scc-style declarative tokenizer + ~60 lang configs
+├── bscc-regex-tier      # scc-style declarative tokenizer + ~360 lang configs
 ├── bscc-ast-tier        # generic tree-sitter analyzer driven by metrics.scm
-├── bscc-lang-rust       \
-├── bscc-lang-python      \
-├── bscc-lang-typescript   |  per-language plugins: grammar + metrics.scm
-├── bscc-lang-go          /   + register()
-├── bscc-lang-c          /
-├── bscc-lang-cpp       /
-├── bscc-lang-java     /
+├── bscc-lang-rust        \
+├── bscc-lang-python       \
+├── bscc-lang-typescript    \
+├── bscc-lang-go            |  per-language plugins: grammar + metrics.scm
+├── bscc-lang-c             |  + register()
+├── bscc-lang-cpp          /
+├── bscc-lang-java        /
+├── bscc-lang-lsl        /
+├── tree-sitter-lsl      # standalone LSL grammar (publication-ready)
 ├── bscc-git             # git log → per-file churn/authors/hotspot_score
 ├── bscc-export          # table, json, csv, sarif, html exporters
 ├── bscc-cli             # binary: subcommands wire it all together

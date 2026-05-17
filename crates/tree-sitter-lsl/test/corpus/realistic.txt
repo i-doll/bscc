@@ -1,0 +1,81 @@
+==================
+Sensor / scan loop
+==================
+
+integer scan_count = 0;
+
+default {
+    state_entry() {
+        llSensorRepeat("", NULL_KEY, AGENT, 10.0, PI, 1.0);
+    }
+
+    sensor(integer detected) {
+        integer i = 0;
+        while (i < detected) {
+            string name = llDetectedName(i);
+            if (name != "") {
+                llSay(0, "saw " + name);
+                ++scan_count;
+            }
+            ++i;
+        }
+    }
+
+    no_sensor() {
+        llSay(0, "nobody here");
+    }
+}
+
+---
+
+(source_file
+  (global_variable type: (type) name: (identifier) value: (integer_literal))
+  (default_state
+    (event_handler
+      name: (identifier)
+      body: (block
+        (expression_statement
+          (call_expression
+            function: (identifier)
+            (argument_list
+              (string_literal)
+              (identifier)
+              (identifier)
+              (float_literal)
+              (identifier)
+              (float_literal))))))
+    (event_handler
+      name: (identifier)
+      (parameter_list (parameter type: (type) name: (identifier)))
+      body: (block
+        (variable_declaration type: (type) name: (identifier) value: (integer_literal))
+        (while_statement
+          condition: (binary_expression left: (identifier) right: (identifier))
+          body: (block
+            (variable_declaration
+              type: (type)
+              name: (identifier)
+              value: (call_expression
+                function: (identifier)
+                (argument_list (identifier))))
+            (if_statement
+              condition: (binary_expression left: (identifier) right: (string_literal))
+              consequence: (block
+                (expression_statement
+                  (call_expression
+                    function: (identifier)
+                    (argument_list
+                      (integer_literal)
+                      (binary_expression left: (string_literal) right: (identifier)))))
+                (expression_statement
+                  (update_expression argument: (identifier)))))
+            (expression_statement
+              (update_expression argument: (identifier)))))))
+    (event_handler
+      name: (identifier)
+      body: (block
+        (expression_statement
+          (call_expression
+            function: (identifier)
+            (argument_list (integer_literal) (string_literal))))))))
+
