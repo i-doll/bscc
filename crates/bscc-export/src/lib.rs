@@ -2,6 +2,7 @@
 //! HTML in M5.
 
 pub mod csv;
+pub mod fmt;
 pub mod html;
 pub mod json;
 pub mod sarif;

@@ -1,3 +1,4 @@
+use crate::fmt::{FAMILIES, fmt_int};
 use bscc_core::{Exporter, Report};
 use std::io::{self, Write};
 
@@ -19,11 +20,13 @@ th { background: #f4f6fa; color: #333; font-weight: 600; }
 tr:hover td { background: #fbfbfd; }
 td.muted { color: #999; }
 td.hot { color: #c2410c; font-weight: 600; }
+tr.family td { background: #f8fafc; font-style: italic; color: #555; border-top: 1px solid #ddd; }
 code { font: 12.5px ui-monospace, SF Mono, Consolas, monospace; color: #4338ca; }
 footer { margin-top: 3em; padding-top: 1em; border-top: 1px solid #eee; font-size: .85em; color: #999; }
 ";
 
 impl Exporter for HtmlExporter {
+    #[allow(clippy::too_many_lines)] // self-contained HTML builder, clearer inline
     fn write(&self, report: &Report, sink: &mut dyn Write) -> io::Result<()> {
         let total = report.grand_total();
         let by_lang = report.by_language();
@@ -35,7 +38,11 @@ impl Exporter for HtmlExporter {
         write!(
             sink,
             "<header><h1>bscc report</h1><p>{} files &middot; {} lines &middot; {} code &middot; {} comments &middot; {} blanks</p></header>",
-            total.files, total.lines, total.code, total.comments, total.blanks
+            fmt_int(total.files),
+            fmt_int(total.lines),
+            fmt_int(total.code),
+            fmt_int(total.comments),
+            fmt_int(total.blanks)
         )?;
 
         // Languages summary
@@ -50,11 +57,37 @@ impl Exporter for HtmlExporter {
                 sink,
                 "<tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>",
                 escape(&t.language),
-                t.files,
-                t.lines,
-                t.code,
-                t.comments,
-                t.blanks
+                fmt_int(t.files),
+                fmt_int(t.lines),
+                fmt_int(t.code),
+                fmt_int(t.comments),
+                fmt_int(t.blanks)
+            )?;
+        }
+        // Family sub-totals (TS+TSX, JS+JSX, C+C++).
+        for fam in FAMILIES {
+            let members: Vec<_> = fam
+                .members
+                .iter()
+                .filter_map(|m| langs.iter().find(|l| l.language == *m))
+                .collect();
+            if members.len() < 2 {
+                continue;
+            }
+            let files: u32 = members.iter().map(|m| m.files).sum();
+            let lines: u32 = members.iter().map(|m| m.lines).sum();
+            let code: u32 = members.iter().map(|m| m.code).sum();
+            let comments: u32 = members.iter().map(|m| m.comments).sum();
+            let blanks: u32 = members.iter().map(|m| m.blanks).sum();
+            write!(
+                sink,
+                "<tr class=\"family\"><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>",
+                escape(fam.display),
+                fmt_int(files),
+                fmt_int(lines),
+                fmt_int(code),
+                fmt_int(comments),
+                fmt_int(blanks)
             )?;
         }
         write!(sink, "</tbody></table></section>")?;
@@ -73,14 +106,14 @@ impl Exporter for HtmlExporter {
         for f in &files {
             let funcs = f
                 .functions
-                .map_or_else(|| muted_cell("—"), |n| cell(&n.to_string()));
+                .map_or_else(|| muted_cell("—"), |n| cell(&fmt_int(n)));
             let cc = f
                 .cyclomatic_max
-                .map_or_else(|| muted_cell("—"), |n| cell(&n.to_string()));
-            let changes = f.git.as_ref().map_or_else(
-                || muted_cell("—"),
-                |g| cell(&g.changes_in_window.to_string()),
-            );
+                .map_or_else(|| muted_cell("—"), |n| cell(&fmt_int(n)));
+            let changes = f
+                .git
+                .as_ref()
+                .map_or_else(|| muted_cell("—"), |g| cell(&fmt_int(g.changes_in_window)));
             let hotspot = f.git.as_ref().map_or_else(
                 || muted_cell("—"),
                 |g| {
@@ -93,8 +126,8 @@ impl Exporter for HtmlExporter {
                 "<tr><td><code>{}</code></td><td>{}</td><td>{}</td><td>{}</td>{}{}{}{}</tr>",
                 escape(&f.path.to_string_lossy()),
                 escape(&f.language),
-                f.lines,
-                f.code,
+                fmt_int(f.lines),
+                fmt_int(f.code),
                 funcs,
                 cc,
                 changes,

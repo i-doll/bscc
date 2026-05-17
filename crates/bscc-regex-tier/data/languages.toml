@@ -167,6 +167,13 @@ block_comments = [["/*", "*/"]]
 strings = [["\"", "\""], ["'", "'"], ["`", "`"]]
 
 [[language]]
+name = "JSX"
+extensions = ["jsx"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""], ["'", "'"], ["`", "`"]]
+
+[[language]]
 name = "CoffeeScript"
 extensions = ["coffee"]
 line_comments = ["#"]

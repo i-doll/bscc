@@ -15,3 +15,5 @@ bscc-core = { path = "../bscc-core" }
 owo-colors = { workspace = true, features = ["supports-colors"] }
 serde.workspace = true
 serde_json.workspace = true
+num-format.workspace = true
+once_cell.workspace = true
