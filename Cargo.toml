@@ -13,6 +13,7 @@ members = [
     "crates/bscc-lang-java",
     "crates/tree-sitter-lsl",
     "crates/bscc-lang-lsl",
+    "crates/bscc-lang-hcl",
     "crates/bscc-git",
     "crates/bscc-lsp",
     "crates/bscc-export",
@@ -67,6 +68,7 @@ tree-sitter-c = "0.24"
 tree-sitter-cpp = "0.23"
 tree-sitter-java = "0.23"
 tree-sitter-lsl = { path = "crates/tree-sitter-lsl" }
+tree-sitter-hcl = "1.1"
 
 # LSP / async
 tower-lsp = "0.20"

@@ -1,5 +1,6 @@
-//! HCL / Terraform / Packer should each get their own bucket in the
-//! report, and Packer's `.pkr.hcl` must not be misrouted to HCL.
+//! HCL / Terraform / Packer / `OpenTofu` each get their own bucket in
+//! the report, and the JSON-syntax variants stay separated so the HCL2
+//! tree-sitter analyzer never receives a `.tf.json` to choke on.
 
 use std::path::PathBuf;
 
@@ -18,7 +19,7 @@ fn build_registry() -> bscc_core::Registry {
 }
 
 #[test]
-fn hashicorp_languages_split_into_three_buckets() {
+fn hashicorp_languages_split_into_buckets() {
     let registry = build_registry();
     let report = bscc_core::walk(
         &[&fixtures_root()],
@@ -31,13 +32,24 @@ fn hashicorp_languages_split_into_three_buckets() {
     let totals = report.by_language();
 
     let terraform = totals.get("Terraform").expect("Terraform bucket present");
-    assert_eq!(terraform.files, 2, "main.tf + variables.tfvars");
+    assert_eq!(
+        terraform.files, 3,
+        "main.tf + variables.tfvars + complexity_terraform.tf"
+    );
 
     let hcl = totals.get("HCL").expect("HCL bucket present");
-    assert_eq!(hcl.files, 1, "config.hcl");
+    assert_eq!(hcl.files, 2, "config.hcl + complexity.hcl");
 
     let packer = totals.get("Packer").expect("Packer bucket present");
-    assert_eq!(packer.files, 1, "builder.pkr.hcl");
+    assert_eq!(packer.files, 2, "builder.pkr.hcl + complexity_packer.pkr.hcl");
+
+    let tofu = totals.get("OpenTofu").expect("OpenTofu bucket present");
+    assert_eq!(tofu.files, 1, "complexity.tofu");
+
+    let tfjson = totals
+        .get("Terraform JSON")
+        .expect("Terraform JSON bucket present");
+    assert_eq!(tfjson.files, 1, "legacy.tf.json");
 }
 
 #[test]
@@ -50,10 +62,19 @@ fn packer_extension_routes_to_packer_not_hcl() {
 }
 
 #[test]
-fn terraform_json_routes_to_terraform_not_json() {
+fn terraform_json_routes_to_terraform_json() {
     let registry = build_registry();
     let entry = registry
         .lookup_by_path(std::path::Path::new("anywhere/infra.tf.json"))
         .expect("tf.json resolves");
-    assert_eq!(entry.name, "Terraform");
+    assert_eq!(entry.name, "Terraform JSON");
+}
+
+#[test]
+fn packer_json_routes_to_packer_json() {
+    let registry = build_registry();
+    let entry = registry
+        .lookup_by_path(std::path::Path::new("anywhere/builder.pkr.json"))
+        .expect("pkr.json resolves");
+    assert_eq!(entry.name, "Packer JSON");
 }

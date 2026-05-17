@@ -2,9 +2,10 @@
 
 A from-scratch code-metrics tool inspired by [scc]. Two-tier engine:
 tree-sitter where grammars are available (Rust, Python, TypeScript / TSX,
-Go, C, C++, Java, **LSL**), declarative regex tokenizer for everything else
-— 360+ languages, ported from scc's `languages.json` plus bscc-specific
-additions (JSX, Git/Editor Config).
+Go, C, C++, Java, **LSL**, **HCL family** — HCL/Terraform/OpenTofu/Packer),
+declarative regex tokenizer for everything else — 360+ languages, ported
+from scc's `languages.json` plus bscc-specific additions (JSX, Git/Editor
+Config).
 
 The LSL grammar (`tree-sitter-lsl`) was written from scratch for this project
 and ships as its own crate alongside the bscc plugin; see
@@ -90,9 +91,10 @@ The git window applies to `bscc hotspots`.
 ## Languages
 
 `bscc languages` lists everything registered at startup. The default
-binary ships 9 tree-sitter languages (Rust, Python, TypeScript, TSX, Go,
-C, C++, Java, LSL) and 360+ regex-tier languages ported from scc plus
-bscc-specific entries (JSX, Git/Editor Config) — see
+binary ships 13 tree-sitter languages (Rust, Python, TypeScript, TSX, Go,
+C, C++, Java, LSL, HCL, Terraform, OpenTofu, Packer) and 360+ regex-tier
+languages ported from scc plus bscc-specific entries (JSX, Git/Editor
+Config) — see
 [`crates/bscc-regex-tier/data/languages.toml`]. The regex-tier file is
 auto-converted from [scc's `languages.json`][scc-langs] so file-type
 coverage tracks scc's broad inventory.
@@ -104,6 +106,20 @@ regex tier to the tree-sitter tier in v1.1, via the
 [`tree-sitter-lsl`](crates/tree-sitter-lsl/) grammar that this project
 authored. Real complexity and per-function explain output now work for
 LSL scripts the same way they do for Rust or Python.
+
+### HCL family (HCL, Terraform, OpenTofu, Packer)
+
+All four HCL2 dialects share one tree-sitter grammar
+([`tree-sitter-hcl`](https://crates.io/crates/tree-sitter-hcl)) and one
+metrics query, registered as four `LanguageEntry`s so the per-dialect
+split in reports is preserved. Each top-level `block` (resource, module,
+data, variable, output, locals, provider, terraform) is a complexity
+scope; cyclomatic branches come from `conditional` and `for_expr`,
+template-side `template_if`/`template_for`, `dynamic` blocks, the
+`count`/`for_each` meta-arguments, and short-circuit `&&` / `||`.
+JSON-syntax variants (`.tf.json`, `.pkr.json`) cannot be parsed by HCL2;
+they keep their dialect label at the regex tier under `Terraform JSON`
+and `Packer JSON`.
 
 ## LSP setup
 

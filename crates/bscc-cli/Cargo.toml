@@ -25,6 +25,7 @@ bscc-lang-c = { path = "../bscc-lang-c" }
 bscc-lang-cpp = { path = "../bscc-lang-cpp" }
 bscc-lang-java = { path = "../bscc-lang-java" }
 bscc-lang-lsl = { path = "../bscc-lang-lsl" }
+bscc-lang-hcl = { path = "../bscc-lang-hcl" }
 bscc-export = { path = "../bscc-export" }
 bscc-git = { path = "../bscc-git" }
 bscc-lsp = { path = "../bscc-lsp" }

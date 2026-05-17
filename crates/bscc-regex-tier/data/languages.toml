@@ -1359,9 +1359,14 @@ extensions = ["pkgbuild"]
 
 [[language]]
 name = "Packer"
-extensions = ["pkr.hcl", "pkrvars.hcl", "pkr.json"]
+extensions = ["pkr.hcl", "pkrvars.hcl"]
 line_comments = ["#", "//"]
 block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Packer JSON"
+extensions = ["pkr.json"]
 strings = [["\"", "\""]]
 
 [[language]]
@@ -1912,9 +1917,14 @@ block_comments = [["<!--", "-->"], ["{#", "#}"]]
 
 [[language]]
 name = "Terraform"
-extensions = ["tf", "tfvars", "tf.json"]
+extensions = ["tf", "tfvars"]
 line_comments = ["#", "//"]
 block_comments = [["/*", "*/"]]
+
+[[language]]
+name = "Terraform JSON"
+extensions = ["tf.json"]
+strings = [["\"", "\""]]
 
 [[language]]
 name = "Textile"

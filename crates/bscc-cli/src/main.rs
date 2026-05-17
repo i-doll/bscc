@@ -53,5 +53,6 @@ fn build_registry() -> bscc_core::Registry {
     bscc_lang_cpp::register(&mut r);
     bscc_lang_java::register(&mut r);
     bscc_lang_lsl::register(&mut r);
+    bscc_lang_hcl::register(&mut r);
     r
 }
