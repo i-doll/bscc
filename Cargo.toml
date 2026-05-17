@@ -3,6 +3,8 @@ resolver = "3"
 members = [
     "crates/bscc-core",
     "crates/bscc-regex-tier",
+    "crates/bscc-ast-tier",
+    "crates/bscc-lang-rust",
     "crates/bscc-export",
     "crates/bscc-cli",
 ]
@@ -43,6 +45,10 @@ owo-colors = "4"
 
 # config / data
 toml = "0.8"
+
+# tree-sitter
+tree-sitter = "0.26"
+tree-sitter-rust = "0.24"
 
 # tests
 insta = { version = "1", features = ["yaml", "json"] }

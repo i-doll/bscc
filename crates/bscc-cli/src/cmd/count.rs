@@ -1,6 +1,6 @@
 use anyhow::Result;
 use bscc_core::{Exporter, Registry, WalkOptions, walk};
-use bscc_export::TableExporter;
+use bscc_export::{JsonExporter, TableExporter};
 use clap::Args;
 use std::io::{self, Write};
 use std::path::PathBuf;
@@ -43,9 +43,8 @@ pub fn run(registry: &Registry, args: CountArgs) -> Result<()> {
     let mut sink = stdout.lock();
     match args.format.as_str() {
         "table" => TableExporter.write(&report, &mut sink)?,
-        other => {
-            anyhow::bail!("unknown format {other:?}; only 'table' is supported in M1")
-        }
+        "json" => JsonExporter { pretty: true }.write(&report, &mut sink)?,
+        other => anyhow::bail!("unknown format {other:?}; supported: table, json"),
     }
     sink.flush()?;
     Ok(())

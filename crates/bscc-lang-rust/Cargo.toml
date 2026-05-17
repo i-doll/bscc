@@ -1,5 +1,5 @@
 [package]
-name = "bscc-export"
+name = "bscc-lang-rust"
 edition.workspace = true
 rust-version.workspace = true
 version.workspace = true
@@ -12,6 +12,6 @@ workspace = true
 
 [dependencies]
 bscc-core = { path = "../bscc-core" }
-owo-colors = { workspace = true, features = ["supports-colors"] }
-serde.workspace = true
-serde_json.workspace = true
+bscc-ast-tier = { path = "../bscc-ast-tier" }
+tree-sitter.workspace = true
+tree-sitter-rust.workspace = true

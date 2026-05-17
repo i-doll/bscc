@@ -17,6 +17,7 @@ path = "src/main.rs"
 [dependencies]
 bscc-core = { path = "../bscc-core" }
 bscc-regex-tier = { path = "../bscc-regex-tier" }
+bscc-lang-rust = { path = "../bscc-lang-rust" }
 bscc-export = { path = "../bscc-export" }
 clap.workspace = true
 anyhow.workspace = true

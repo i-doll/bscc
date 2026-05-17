@@ -29,6 +29,9 @@ fn main() -> Result<()> {
 
 fn build_registry() -> bscc_core::Registry {
     let mut r = bscc_core::Registry::new();
+    // Regex tier first; tree-sitter language crates register after so they
+    // override the regex-tier entry for their extensions.
     bscc_regex_tier::register(&mut r);
+    bscc_lang_rust::register(&mut r);
     r
 }
