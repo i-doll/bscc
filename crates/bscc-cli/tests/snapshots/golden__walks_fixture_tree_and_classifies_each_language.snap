@@ -11,7 +11,8 @@ expression: snapshot
     "code": 5,
     "comments": 1,
     "blanks": 2,
-    "bytes": 98
+    "bytes": 98,
+    "complexity": 0
   },
   "LSL": {
     "language": "LSL",
@@ -20,7 +21,8 @@ expression: snapshot
     "code": 11,
     "comments": 3,
     "blanks": 1,
-    "bytes": 263
+    "bytes": 263,
+    "complexity": 0
   },
   "Python": {
     "language": "Python",
@@ -29,7 +31,8 @@ expression: snapshot
     "code": 5,
     "comments": 1,
     "blanks": 2,
-    "bytes": 136
+    "bytes": 136,
+    "complexity": 0
   },
   "Rust": {
     "language": "Rust",
@@ -38,7 +41,8 @@ expression: snapshot
     "code": 4,
     "comments": 1,
     "blanks": 0,
-    "bytes": 124
+    "bytes": 124,
+    "complexity": 0
   },
   "Shell": {
     "language": "Shell",
@@ -47,6 +51,7 @@ expression: snapshot
     "code": 1,
     "comments": 2,
     "blanks": 0,
-    "bytes": 67
+    "bytes": 67,
+    "complexity": 0
   }
 }

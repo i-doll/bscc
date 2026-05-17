@@ -20,6 +20,7 @@ impl Exporter for TableExporter {
                 code: t.code,
                 comments: t.comments,
                 blanks: t.blanks,
+                complexity: t.complexity,
             })
             .collect();
         rows.sort_by(|a, b| b.lines.cmp(&a.lines).then(a.name.cmp(&b.name)));
@@ -37,6 +38,7 @@ impl Exporter for TableExporter {
             code: grand.code,
             comments: grand.comments,
             blanks: grand.blanks,
+            complexity: grand.complexity,
         };
 
         let widths = compute_widths(&blocks, &total_row);
@@ -68,6 +70,7 @@ struct Row {
     code: u32,
     comments: u32,
     blanks: u32,
+    complexity: u32,
 }
 
 struct Block {
@@ -102,6 +105,7 @@ fn build_blocks(rows: &[Row]) -> Vec<Block> {
             head.code += m.code;
             head.comments += m.comments;
             head.blanks += m.blanks;
+            head.complexity += m.complexity;
         }
         indented.sort_by(|a, b| b.lines.cmp(&a.lines).then(a.name.cmp(&b.name)));
         for m in fam.members {
@@ -135,8 +139,8 @@ struct Widths {
 
 impl Widths {
     fn total_width(&self) -> usize {
-        // 5 numeric columns + lang column + 6 single-space gutters
-        self.lang + 5 * self.num + 6
+        // 6 numeric columns + lang column + 7 single-space gutters
+        self.lang + 6 * self.num + 7
     }
 }
 
@@ -154,26 +158,27 @@ fn compute_widths(blocks: &[Block], total: &Row) -> Widths {
     }
     let num_max = num_rows
         .iter()
-        .flat_map(|r| [r.files, r.lines, r.code, r.comments, r.blanks])
+        .flat_map(|r| [r.files, r.lines, r.code, r.comments, r.blanks, r.complexity])
         .map(|n| fmt_int(n).chars().count())
         .max()
         .unwrap_or(1);
     Widths {
         lang: lang_header.max(lang_max),
-        num: num_max.max("Comments".len()),
+        num: num_max.max("Complexity".len()),
     }
 }
 
 fn write_header(sink: &mut dyn Write, w: &Widths) -> io::Result<()> {
     writeln!(
         sink,
-        "{lang:<lang_w$} {files:>num_w$} {lines:>num_w$} {code:>num_w$} {comments:>num_w$} {blanks:>num_w$}",
+        "{lang:<lang_w$} {files:>num_w$} {lines:>num_w$} {code:>num_w$} {comments:>num_w$} {blanks:>num_w$} {complexity:>num_w$}",
         lang = "Language".if_supports_color(Stream::Stdout, |s| s.bold()),
         files = "Files".if_supports_color(Stream::Stdout, |s| s.bold()),
         lines = "Lines".if_supports_color(Stream::Stdout, |s| s.bold()),
         code = "Code".if_supports_color(Stream::Stdout, |s| s.bold()),
         comments = "Comments".if_supports_color(Stream::Stdout, |s| s.bold()),
         blanks = "Blanks".if_supports_color(Stream::Stdout, |s| s.bold()),
+        complexity = "Complexity".if_supports_color(Stream::Stdout, |s| s.bold()),
         lang_w = w.lang,
         num_w = w.num,
     )
@@ -183,13 +188,14 @@ fn write_row(sink: &mut dyn Write, r: &Row, indent: usize, w: &Widths) -> io::Re
     let padded_name = format!("{:indent$}{}", "", r.name, indent = indent);
     writeln!(
         sink,
-        "{name:<lang_w$} {files:>num_w$} {lines:>num_w$} {code:>num_w$} {comments:>num_w$} {blanks:>num_w$}",
+        "{name:<lang_w$} {files:>num_w$} {lines:>num_w$} {code:>num_w$} {comments:>num_w$} {blanks:>num_w$} {complexity:>num_w$}",
         name = padded_name,
         files = fmt_int(r.files),
         lines = fmt_int(r.lines),
         code = fmt_int(r.code),
         comments = fmt_int(r.comments),
         blanks = fmt_int(r.blanks),
+        complexity = fmt_int(r.complexity),
         lang_w = w.lang,
         num_w = w.num,
     )

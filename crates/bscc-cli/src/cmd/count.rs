@@ -15,9 +15,11 @@ pub struct CountArgs {
     /// Disable .gitignore handling.
     #[arg(long)]
     pub no_gitignore: bool,
-    /// Include hidden files.
+    /// Skip hidden (dotfile) files and directories. Default walks them so
+    /// `.github/`, `.vscode/`, etc. show up; VCS dirs (`.git`, `.hg`, ...)
+    /// are always skipped.
     #[arg(long)]
-    pub hidden: bool,
+    pub skip_hidden: bool,
     /// Worker threads. 0 = auto.
     #[arg(short = 'j', long, default_value_t = 0)]
     pub threads: usize,
@@ -34,7 +36,7 @@ pub fn run(registry: &Registry, args: CountArgs, cfg: &crate::config::Config) ->
         threads: args.threads,
         follow_links: false,
         respect_gitignore: !args.no_gitignore,
-        include_hidden: args.hidden,
+        skip_hidden: args.skip_hidden,
     };
 
     let report = walk(&roots, registry, &opts);

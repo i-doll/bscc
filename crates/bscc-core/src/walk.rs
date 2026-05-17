@@ -7,7 +7,12 @@ pub struct WalkOptions {
     pub threads: usize,
     pub follow_links: bool,
     pub respect_gitignore: bool,
-    pub include_hidden: bool,
+    /// When `true`, skip dotted (hidden) files and directories. Default is
+    /// `false`: walk hidden by default to match scc and so config files
+    /// living under `.github/`, `.vscode/`, etc. show up in counts. VCS
+    /// metadata directories (`.git`, `.hg`, `.svn`, `.bzr`, `.jj`) are
+    /// always skipped regardless of this setting.
+    pub skip_hidden: bool,
 }
 
 impl Default for WalkOptions {
@@ -16,10 +21,12 @@ impl Default for WalkOptions {
             threads: 0,
             follow_links: false,
             respect_gitignore: true,
-            include_hidden: false,
+            skip_hidden: false,
         }
     }
 }
+
+const VCS_DIRS: &[&str] = &[".git", ".hg", ".svn", ".bzr", ".jj", "_darcs"];
 
 /// Walk `roots` and produce a `Report`. Files whose language is not in the
 /// registry are silently skipped.
@@ -38,10 +45,18 @@ pub fn walk<P: AsRef<Path>>(roots: &[P], registry: &Registry, opts: &WalkOptions
         .git_ignore(opts.respect_gitignore)
         .git_global(opts.respect_gitignore)
         .git_exclude(opts.respect_gitignore)
-        .hidden(!opts.include_hidden);
+        .hidden(opts.skip_hidden);
     if opts.threads > 0 {
         builder.threads(opts.threads);
     }
+
+    builder.filter_entry(|e| {
+        // Prune VCS metadata directories before descending into them.
+        !(e.file_type().is_some_and(|t| t.is_dir())
+            && e.file_name()
+                .to_str()
+                .is_some_and(|n| VCS_DIRS.contains(&n)))
+    });
 
     for entry in builder.build().flatten() {
         if entry.file_type().is_some_and(|t| t.is_file()) {

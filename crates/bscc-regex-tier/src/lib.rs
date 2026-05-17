@@ -29,6 +29,7 @@ pub fn register(registry: &mut Registry) {
         registry.register(LanguageEntry {
             name: cfg.name.clone(),
             extensions: cfg.extensions.clone(),
+            filenames: cfg.filenames.clone(),
             tier: Tier::Regex,
             analyzer,
         });

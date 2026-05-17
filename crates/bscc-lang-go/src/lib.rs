@@ -11,6 +11,7 @@ pub fn register(registry: &mut Registry) {
     registry.register(LanguageEntry {
         name: "Go".into(),
         extensions: vec!["go".into()],
+        filenames: vec![],
         tier: Tier::TreeSitter,
         analyzer: Arc::new(analyzer),
     });

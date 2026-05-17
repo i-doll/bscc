@@ -11,7 +11,8 @@ pub fn register(registry: &mut Registry) {
             .expect("bundled TypeScript metrics.scm must compile");
         registry.register(LanguageEntry {
             name: "TypeScript".into(),
-            extensions: vec!["ts".into()],
+            extensions: vec!["ts".into(), "mts".into(), "cts".into()],
+            filenames: vec![],
             tier: Tier::TreeSitter,
             analyzer: Arc::new(analyzer),
         });
@@ -23,6 +24,7 @@ pub fn register(registry: &mut Registry) {
         registry.register(LanguageEntry {
             name: "TSX".into(),
             extensions: vec!["tsx".into()],
+            filenames: vec![],
             tier: Tier::TreeSitter,
             analyzer: Arc::new(analyzer),
         });

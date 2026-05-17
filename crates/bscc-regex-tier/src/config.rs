@@ -5,6 +5,9 @@ pub struct LanguageConfig {
     pub name: String,
     #[serde(default)]
     pub extensions: Vec<String>,
+    /// Exact-match filenames (no extension), e.g. `Makefile`, `Dockerfile`.
+    #[serde(default)]
+    pub filenames: Vec<String>,
     #[serde(default)]
     pub line_comments: Vec<String>,
     #[serde(default)]

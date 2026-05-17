@@ -18,6 +18,7 @@ pub fn register(registry: &mut Registry) {
             "hxx".into(),
             "hh".into(),
         ],
+        filenames: vec![],
         tier: Tier::TreeSitter,
         analyzer: Arc::new(analyzer),
     });

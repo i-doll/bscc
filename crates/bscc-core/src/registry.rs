@@ -16,6 +16,9 @@ pub enum Tier {
 pub struct LanguageEntry {
     pub name: String,
     pub extensions: Vec<String>,
+    /// Exact-match filenames (e.g. "Makefile", "Dockerfile", ".dockerignore").
+    /// Filename matches win over extension matches.
+    pub filenames: Vec<String>,
     pub tier: Tier,
     pub analyzer: Arc<dyn Analyzer>,
 }
@@ -39,6 +42,7 @@ pub struct Registry {
     entries: Vec<Arc<LanguageEntry>>,
     by_name: HashMap<String, Arc<LanguageEntry>>,
     by_ext: HashMap<String, Arc<LanguageEntry>>,
+    by_filename: HashMap<String, Arc<LanguageEntry>>,
 }
 
 impl Registry {
@@ -61,6 +65,9 @@ impl Registry {
             self.by_ext
                 .insert(ext.to_ascii_lowercase(), Arc::clone(&entry));
         }
+        for fname in &entry.filenames {
+            self.by_filename.insert(fname.clone(), Arc::clone(&entry));
+        }
     }
 
     pub fn lookup_by_name(&self, name: &str) -> Option<&LanguageEntry> {
@@ -73,7 +80,18 @@ impl Registry {
             .map(AsRef::as_ref)
     }
 
+    pub fn lookup_by_filename(&self, name: &str) -> Option<&LanguageEntry> {
+        self.by_filename.get(name).map(AsRef::as_ref)
+    }
+
     pub fn lookup_by_path(&self, path: &Path) -> Option<&LanguageEntry> {
+        // Filename match wins over extension match so a `Dockerfile` doesn't
+        // need a fake extension to be recognized.
+        if let Some(name) = path.file_name().and_then(|n| n.to_str())
+            && let Some(entry) = self.lookup_by_filename(name)
+        {
+            return Some(entry);
+        }
         let ext = path.extension().and_then(|e| e.to_str())?;
         self.lookup_by_extension(ext)
     }

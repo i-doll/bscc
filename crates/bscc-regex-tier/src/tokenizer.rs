@@ -156,6 +156,7 @@ mod tests {
         LanguageConfig {
             name: "test".into(),
             extensions: vec!["x".into()],
+            filenames: vec![],
             line_comments: vec!["//".into()],
             block_comments: vec![["/*".into(), "*/".into()]],
             strings: vec![["\"".into(), "\"".into()]],

@@ -13,6 +13,7 @@ pub fn register(registry: &mut Registry) {
     registry.register(LanguageEntry {
         name: "Rust".into(),
         extensions: vec!["rs".into()],
+        filenames: vec![],
         tier: Tier::TreeSitter,
         analyzer: Arc::new(analyzer),
     });

@@ -16,6 +16,9 @@ pub struct LanguageTotal {
     pub comments: u32,
     pub blanks: u32,
     pub bytes: u64,
+    /// Sum of `cyclomatic_total` over tree-sitter-tier files in this
+    /// language. `0` for purely regex-tier languages.
+    pub complexity: u32,
 }
 
 impl Report {
@@ -36,6 +39,7 @@ impl Report {
             t.comments += f.comments;
             t.blanks += f.blanks;
             t.bytes += f.bytes;
+            t.complexity += f.cyclomatic_total.unwrap_or(0);
         }
         totals
     }
@@ -52,6 +56,7 @@ impl Report {
             t.comments += f.comments;
             t.blanks += f.blanks;
             t.bytes += f.bytes;
+            t.complexity += f.cyclomatic_total.unwrap_or(0);
         }
         t
     }

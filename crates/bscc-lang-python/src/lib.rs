@@ -11,6 +11,7 @@ pub fn register(registry: &mut Registry) {
     registry.register(LanguageEntry {
         name: "Python".into(),
         extensions: vec!["py".into(), "pyi".into()],
+        filenames: vec![],
         tier: Tier::TreeSitter,
         analyzer: Arc::new(analyzer),
     });

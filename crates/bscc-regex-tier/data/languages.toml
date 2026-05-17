@@ -161,7 +161,7 @@ strings = [["\"", "\""], ["'", "'"], ["`", "`"]]
 
 [[language]]
 name = "TypeScript"
-extensions = ["ts", "tsx"]
+extensions = ["ts", "tsx", "mts", "cts"]
 line_comments = ["//"]
 block_comments = [["/*", "*/"]]
 strings = [["\"", "\""], ["'", "'"], ["`", "`"]]
@@ -428,32 +428,62 @@ strings = [["\"", "\""], ["'", "'"]]
 [[language]]
 name = "Dockerfile"
 extensions = ["dockerfile"]
+filenames = ["Dockerfile", "Containerfile"]
 line_comments = ["#"]
 strings = [["\"", "\""], ["'", "'"]]
 
 [[language]]
+name = "Docker ignore"
+filenames = [".dockerignore"]
+line_comments = ["#"]
+strings = []
+
+[[language]]
 name = "Makefile"
 extensions = ["mk"]
+filenames = ["Makefile", "makefile", "GNUmakefile"]
 line_comments = ["#"]
 strings = [["\"", "\""], ["'", "'"]]
 
 [[language]]
 name = "CMake"
 extensions = ["cmake"]
+filenames = ["CMakeLists.txt"]
 line_comments = ["#"]
 strings = [["\"", "\""]]
 
 [[language]]
 name = "Bazel"
 extensions = ["bazel", "bzl"]
+filenames = ["BUILD", "WORKSPACE", "BUILD.bazel", "WORKSPACE.bazel"]
 line_comments = ["#"]
 strings = [["\"\"\"", "\"\"\""], ["'''", "'''"], ["\"", "\""], ["'", "'"]]
 
 [[language]]
 name = "Just"
 extensions = ["justfile"]
+filenames = ["Justfile", "justfile"]
 line_comments = ["#"]
 strings = [["\"", "\""], ["'", "'"]]
+
+[[language]]
+name = "Ruby Gemfile"
+filenames = ["Gemfile", "Rakefile"]
+extensions = ["gemspec"]
+line_comments = ["#"]
+strings = [["\"", "\""], ["'", "'"]]
+
+[[language]]
+name = "Git Config"
+filenames = [".gitignore", ".gitattributes", ".gitmodules"]
+line_comments = ["#"]
+strings = []
+
+[[language]]
+name = "Editor Config"
+filenames = [".editorconfig"]
+line_comments = [";", "#"]
+strings = []
 
 # ────────── Other ──────────
 
