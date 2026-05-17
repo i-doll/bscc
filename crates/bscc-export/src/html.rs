@@ -20,7 +20,9 @@ th { background: #f4f6fa; color: #333; font-weight: 600; }
 tr:hover td { background: #fbfbfd; }
 td.muted { color: #999; }
 td.hot { color: #c2410c; font-weight: 600; }
-tr.family td { background: #f8fafc; font-style: italic; color: #555; border-top: 1px solid #ddd; }
+tr.family td:first-child { font-weight: 600; }
+tr.family td { background: #f4f6fa; border-top: 1px solid #ccd; }
+tr.member td:first-child { padding-left: 2em; color: #555; }
 code { font: 12.5px ui-monospace, SF Mono, Consolas, monospace; color: #4338ca; }
 footer { margin-top: 3em; padding-top: 1em; border-top: 1px solid #eee; font-size: .85em; color: #999; }
 ";
@@ -50,45 +52,33 @@ impl Exporter for HtmlExporter {
             sink,
             "<section><h2>Languages</h2><table><thead><tr><th>Language</th><th>Files</th><th>Lines</th><th>Code</th><th>Comments</th><th>Blanks</th></tr></thead><tbody>"
         )?;
-        let mut langs: Vec<_> = by_lang.into_values().collect();
-        langs.sort_by(|a, b| b.lines.cmp(&a.lines));
-        for t in &langs {
+        let langs: Vec<_> = by_lang.into_values().collect();
+        let blocks = lang_blocks(&langs);
+        for block in &blocks {
+            let row_class = if block.is_family { "family" } else { "" };
             write!(
                 sink,
-                "<tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>",
-                escape(&t.language),
-                fmt_int(t.files),
-                fmt_int(t.lines),
-                fmt_int(t.code),
-                fmt_int(t.comments),
-                fmt_int(t.blanks)
+                "<tr class=\"{}\"><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>",
+                row_class,
+                escape(&block.head.name),
+                fmt_int(block.head.files),
+                fmt_int(block.head.lines),
+                fmt_int(block.head.code),
+                fmt_int(block.head.comments),
+                fmt_int(block.head.blanks)
             )?;
-        }
-        // Family sub-totals (TS+TSX, JS+JSX, C+C++).
-        for fam in FAMILIES {
-            let members: Vec<_> = fam
-                .members
-                .iter()
-                .filter_map(|m| langs.iter().find(|l| l.language == *m))
-                .collect();
-            if members.len() < 2 {
-                continue;
+            for m in &block.members {
+                write!(
+                    sink,
+                    "<tr class=\"member\"><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>",
+                    escape(&m.name),
+                    fmt_int(m.files),
+                    fmt_int(m.lines),
+                    fmt_int(m.code),
+                    fmt_int(m.comments),
+                    fmt_int(m.blanks)
+                )?;
             }
-            let files: u32 = members.iter().map(|m| m.files).sum();
-            let lines: u32 = members.iter().map(|m| m.lines).sum();
-            let code: u32 = members.iter().map(|m| m.code).sum();
-            let comments: u32 = members.iter().map(|m| m.comments).sum();
-            let blanks: u32 = members.iter().map(|m| m.blanks).sum();
-            write!(
-                sink,
-                "<tr class=\"family\"><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>",
-                escape(fam.display),
-                fmt_int(files),
-                fmt_int(lines),
-                fmt_int(code),
-                fmt_int(comments),
-                fmt_int(blanks)
-            )?;
         }
         write!(sink, "</tbody></table></section>")?;
 
@@ -142,6 +132,93 @@ impl Exporter for HtmlExporter {
         )?;
         Ok(())
     }
+}
+
+/// Mirrors the table-exporter block builder so HTML and table agree on
+/// structure. `head` is the family total (or the standalone language);
+/// `members` are the indented per-language rows when `is_family` is true.
+struct LangRow {
+    name: String,
+    files: u32,
+    lines: u32,
+    code: u32,
+    comments: u32,
+    blanks: u32,
+}
+
+struct LangBlock {
+    head: LangRow,
+    members: Vec<LangRow>,
+    is_family: bool,
+}
+
+fn lang_blocks(langs: &[bscc_core::LanguageTotal]) -> Vec<LangBlock> {
+    let mut blocks: Vec<LangBlock> = Vec::new();
+    let mut consumed: Vec<&str> = Vec::new();
+
+    for fam in FAMILIES {
+        let members: Vec<&bscc_core::LanguageTotal> = fam
+            .members
+            .iter()
+            .filter_map(|m| langs.iter().find(|l| l.language == *m))
+            .collect();
+        if members.len() < 2 {
+            continue;
+        }
+        let head = LangRow {
+            name: fam.display.into(),
+            files: members.iter().map(|m| m.files).sum(),
+            lines: members.iter().map(|m| m.lines).sum(),
+            code: members.iter().map(|m| m.code).sum(),
+            comments: members.iter().map(|m| m.comments).sum(),
+            blanks: members.iter().map(|m| m.blanks).sum(),
+        };
+        let mut indented: Vec<LangRow> = members
+            .iter()
+            .map(|m| LangRow {
+                name: m.language.clone(),
+                files: m.files,
+                lines: m.lines,
+                code: m.code,
+                comments: m.comments,
+                blanks: m.blanks,
+            })
+            .collect();
+        indented.sort_by(|a, b| b.lines.cmp(&a.lines).then(a.name.cmp(&b.name)));
+        for m in fam.members {
+            consumed.push(m);
+        }
+        blocks.push(LangBlock {
+            head,
+            members: indented,
+            is_family: true,
+        });
+    }
+
+    for l in langs {
+        if !consumed.iter().any(|c| *c == l.language) {
+            blocks.push(LangBlock {
+                head: LangRow {
+                    name: l.language.clone(),
+                    files: l.files,
+                    lines: l.lines,
+                    code: l.code,
+                    comments: l.comments,
+                    blanks: l.blanks,
+                },
+                members: Vec::new(),
+                is_family: false,
+            });
+        }
+    }
+
+    blocks.sort_by(|a, b| {
+        b.head
+            .lines
+            .cmp(&a.head.lines)
+            .then(a.head.name.cmp(&b.head.name))
+    });
+    blocks
 }
 
 fn cell(text: &str) -> String {
