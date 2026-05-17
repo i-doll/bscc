@@ -52,6 +52,14 @@ bscc languages            list registered languages and which tier they use
 bscc lsp                  run the LSP server over stdio (same as bscc-lsp binary)
 ```
 
+## Editor integration
+
+A VS Code client lives in [`editors/vscode/`](editors/vscode/) — wraps
+`bscc lsp` for diagnostics, code lenses, and a per-function details
+panel. Build it with `npm install && npm run package`, then install the
+generated `.vsix` via `code --install-extension`. See the
+[extension README](editors/vscode/README.md) for details and settings.
+
 ### Examples
 
 ```sh

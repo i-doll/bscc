@@ -2,6 +2,12 @@
 **/*.rs.bk
 Cargo.lock.bak
 
+# VS Code extension build output (kept locally; published as .vsix releases)
+editors/vscode/node_modules/
+editors/vscode/out/
+editors/vscode/*.vsix
+editors/vscode/package-lock.json
+
 # Per personal CLAUDE.md
 tasks/todo.md
 tasks/lessons.md

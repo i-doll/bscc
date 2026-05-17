@@ -1,0 +1,94 @@
+{
+  "name": "bscc",
+  "displayName": "bscc",
+  "description": "Code complexity + COCOMO cost insights from the bscc analyzer",
+  "version": "0.0.1",
+  "publisher": "i-doll",
+  "license": "MIT OR Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/i-doll/bscc"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Linters",
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:rust",
+    "onLanguage:python",
+    "onLanguage:typescript",
+    "onLanguage:typescriptreact",
+    "onLanguage:go",
+    "onLanguage:c",
+    "onLanguage:cpp",
+    "onLanguage:java",
+    "onLanguage:hcl",
+    "onLanguage:terraform",
+    "onLanguage:lsl",
+    "workspaceContains:bscc.toml"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "bscc",
+      "properties": {
+        "bscc.path": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Path to the `bscc` binary. Empty = look on PATH."
+        },
+        "bscc.enable": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable the bscc language server."
+        },
+        "bscc.trace.server": {
+          "type": "string",
+          "enum": [
+            "off",
+            "messages",
+            "verbose"
+          ],
+          "default": "off",
+          "description": "Trace LSP traffic to the bscc output panel."
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "bscc.noop",
+        "title": "bscc: Show function details",
+        "category": "bscc"
+      },
+      {
+        "command": "bscc.showDetails",
+        "title": "bscc: Show per-function details for current file",
+        "category": "bscc"
+      },
+      {
+        "command": "bscc.restart",
+        "title": "bscc: Restart server",
+        "category": "bscc"
+      }
+    ]
+  },
+  "scripts": {
+    "compile": "node esbuild.mjs && tsc --noEmit",
+    "watch": "node esbuild.mjs --watch",
+    "package": "vsce package",
+    "vscode:prepublish": "node esbuild.mjs --minify"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^3.0.0",
+    "esbuild": "^0.24.0",
+    "typescript": "^5.5.0"
+  },
+  "dependencies": {
+    "vscode-languageclient": "^9.0.1"
+  }
+}
