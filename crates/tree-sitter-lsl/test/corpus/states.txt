@@ -1,0 +1,99 @@
+==================
+Default state with single event
+==================
+
+default {
+    state_entry() {
+        llSay(0, "Hello, Avatar!");
+    }
+}
+
+---
+
+(source_file
+  (default_state
+    (event_handler
+      name: (identifier)
+      body: (block
+        (expression_statement
+          (call_expression
+            function: (identifier)
+            (argument_list
+              (integer_literal)
+              (string_literal))))))))
+
+==================
+Default state with multiple events
+==================
+
+default {
+    state_entry() {
+        llSay(0, "init");
+    }
+
+    touch_start(integer total_number) {
+        /* called when an avatar touches */
+        llSay(0, "touched");
+    }
+}
+
+---
+
+(source_file
+  (default_state
+    (event_handler
+      name: (identifier)
+      body: (block
+        (expression_statement
+          (call_expression
+            function: (identifier)
+            (argument_list
+              (integer_literal)
+              (string_literal))))))
+    (event_handler
+      name: (identifier)
+      (parameter_list
+        (parameter
+          type: (type)
+          name: (identifier)))
+      body: (block
+        (block_comment)
+        (expression_statement
+          (call_expression
+            function: (identifier)
+            (argument_list
+              (integer_literal)
+              (string_literal))))))))
+
+==================
+Named state with state change
+==================
+
+default {
+    state_entry() {
+        state running;
+    }
+}
+
+state running {
+    state_entry() {
+        state default;
+    }
+}
+
+---
+
+(source_file
+  (default_state
+    (event_handler
+      name: (identifier)
+      body: (block
+        (state_change_statement
+          name: (identifier)))))
+  (state_declaration
+    name: (identifier)
+    (event_handler
+      name: (identifier)
+      body: (block
+        (state_change_statement
+          name: (identifier))))))

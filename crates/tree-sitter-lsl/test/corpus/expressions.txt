@@ -1,0 +1,139 @@
+==================
+Arithmetic and precedence
+==================
+
+default {
+    state_entry() {
+        integer x = 1 + 2 * 3;
+        integer y = (1 + 2) * 3;
+    }
+}
+
+---
+
+(source_file
+  (default_state
+    (event_handler
+      name: (identifier)
+      body: (block
+        (variable_declaration
+          type: (type)
+          name: (identifier)
+          value: (binary_expression
+            left: (integer_literal)
+            right: (binary_expression
+              left: (integer_literal)
+              right: (integer_literal))))
+        (variable_declaration
+          type: (type)
+          name: (identifier)
+          value: (binary_expression
+            left: (parenthesized_expression
+              (binary_expression
+                left: (integer_literal)
+                right: (integer_literal)))
+            right: (integer_literal)))))))
+
+==================
+Function call and assignment
+==================
+
+default {
+    state_entry() {
+        integer count;
+        count = llGetListLength(["a", "b", "c"]);
+    }
+}
+
+---
+
+(source_file
+  (default_state
+    (event_handler
+      name: (identifier)
+      body: (block
+        (variable_declaration
+          type: (type)
+          name: (identifier))
+        (expression_statement
+          (assignment_expression
+            left: (identifier)
+            right: (call_expression
+              function: (identifier)
+              (argument_list
+                (list_literal
+                  (string_literal)
+                  (string_literal)
+                  (string_literal))))))))))
+
+==================
+Vector and rotation literals
+==================
+
+default {
+    state_entry() {
+        vector v = <1.0, 2.0, 3.0>;
+        rotation r = <0.0, 0.0, 0.0, 1.0>;
+        float x = v.x;
+    }
+}
+
+---
+
+(source_file
+  (default_state
+    (event_handler
+      name: (identifier)
+      body: (block
+        (variable_declaration
+          type: (type)
+          name: (identifier)
+          value: (vector_literal
+            x: (float_literal)
+            y: (float_literal)
+            z: (float_literal)))
+        (variable_declaration
+          type: (type)
+          name: (identifier)
+          value: (rotation_literal
+            x: (float_literal)
+            y: (float_literal)
+            z: (float_literal)
+            s: (float_literal)))
+        (variable_declaration
+          type: (type)
+          name: (identifier)
+          value: (member_expression
+            object: (identifier)
+            property: (identifier)))))))
+
+==================
+Typecast
+==================
+
+default {
+    state_entry() {
+        string s = (string)42;
+        integer n = (integer)"123";
+    }
+}
+
+---
+
+(source_file
+  (default_state
+    (event_handler
+      name: (identifier)
+      body: (block
+        (variable_declaration
+          type: (type)
+          name: (identifier)
+          value: (cast_expression
+            type: (type)
+            value: (integer_literal)))
+        (variable_declaration
+          type: (type)
+          name: (identifier)
+          value: (cast_expression
+            type: (type)
+            value: (string_literal)))))))

@@ -1,0 +1,123 @@
+==================
+Global function with return type
+==================
+
+integer add(integer a, integer b) {
+    return a + b;
+}
+
+default {
+    state_entry() {
+        integer r = add(2, 3);
+    }
+}
+
+---
+
+(source_file
+  (function_declaration
+    return_type: (type)
+    name: (identifier)
+    (parameter_list
+      (parameter type: (type) name: (identifier))
+      (parameter type: (type) name: (identifier)))
+    body: (block
+      (return_statement
+        (binary_expression
+          left: (identifier)
+          right: (identifier)))))
+  (default_state
+    (event_handler
+      name: (identifier)
+      body: (block
+        (variable_declaration
+          type: (type)
+          name: (identifier)
+          value: (call_expression
+            function: (identifier)
+            (argument_list
+              (integer_literal)
+              (integer_literal))))))))
+
+==================
+Void function (no return type)
+==================
+
+greet(string name) {
+    llSay(0, "hi " + name);
+}
+
+default {
+    state_entry() {
+        greet("world");
+    }
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    (parameter_list
+      (parameter type: (type) name: (identifier)))
+    body: (block
+      (expression_statement
+        (call_expression
+          function: (identifier)
+          (argument_list
+            (integer_literal)
+            (binary_expression
+              left: (string_literal)
+              right: (identifier)))))))
+  (default_state
+    (event_handler
+      name: (identifier)
+      body: (block
+        (expression_statement
+          (call_expression
+            function: (identifier)
+            (argument_list
+              (string_literal))))))))
+
+==================
+Global variables
+==================
+
+integer counter = 0;
+string label = "click me";
+vector home = <0.0, 0.0, 0.0>;
+
+default {
+    state_entry() {
+        counter = counter + 1;
+    }
+}
+
+---
+
+(source_file
+  (global_variable
+    type: (type)
+    name: (identifier)
+    value: (integer_literal))
+  (global_variable
+    type: (type)
+    name: (identifier)
+    value: (string_literal))
+  (global_variable
+    type: (type)
+    name: (identifier)
+    value: (vector_literal
+      x: (float_literal)
+      y: (float_literal)
+      z: (float_literal)))
+  (default_state
+    (event_handler
+      name: (identifier)
+      body: (block
+        (expression_statement
+          (assignment_expression
+            left: (identifier)
+            right: (binary_expression
+              left: (identifier)
+              right: (integer_literal))))))))

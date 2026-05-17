@@ -1,0 +1,30 @@
+{
+  "grammars": [
+    {
+      "name": "lsl",
+      "camelcase": "Lsl",
+      "scope": "source.lsl",
+      "path": ".",
+      "file-types": ["lsl"],
+      "highlights": ["queries/highlights.scm"],
+      "injection-regex": "^lsl$"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT OR Apache-2.0",
+    "description": "LSL (Linden Scripting Language) grammar for tree-sitter",
+    "authors": [
+      {
+        "name": "Amalthea Skydancer",
+        "email": "five@th3a.dev"
+      }
+    ],
+    "links": {
+      "repository": "https://github.com/i-doll/bscc"
+    }
+  },
+  "bindings": {
+    "rust": true
+  }
+}

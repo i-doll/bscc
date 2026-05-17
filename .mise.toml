@@ -2,6 +2,7 @@
 rust = "1.92.0"
 "cargo:cargo-nextest" = "latest"
 "cargo:cargo-insta" = "latest"
+"cargo:tree-sitter-cli" = "latest"
 
 [tasks.fmt]
 description = "Format the whole workspace"
@@ -26,3 +27,11 @@ run = "cargo llvm-cov --workspace --all-features"
 [tasks.bench]
 description = "Run benches"
 run = "cargo bench --workspace"
+
+[tasks."grammar:generate"]
+description = "Regenerate tree-sitter-lsl parser from grammar.js"
+run = "cd crates/tree-sitter-lsl && tree-sitter generate"
+
+[tasks."grammar:test"]
+description = "Run tree-sitter-lsl corpus tests"
+run = "cd crates/tree-sitter-lsl && tree-sitter test"

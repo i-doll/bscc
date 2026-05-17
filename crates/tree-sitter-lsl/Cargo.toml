@@ -1,0 +1,38 @@
+[package]
+name = "tree-sitter-lsl"
+description = "LSL (Linden Scripting Language) grammar for tree-sitter"
+edition.workspace = true
+rust-version.workspace = true
+version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+keywords = ["incremental", "parsing", "tree-sitter", "lsl", "linden"]
+categories = ["parsing", "text-editors"]
+build = "bindings/rust/build.rs"
+include = [
+    "LICENSE",
+    "README.md",
+    "bindings/rust/*",
+    "grammar.js",
+    "queries/*",
+    "src/*",
+    "tree-sitter.json",
+]
+autolib = false
+
+[lib]
+name = "tree_sitter_lsl"
+path = "bindings/rust/lib.rs"
+
+# [lints] intentionally omitted — generated parser.c + the Rust binding stub
+# don't benefit from the workspace pedantic clippy profile.
+
+[dependencies]
+tree-sitter-language = "0.1"
+
+[build-dependencies]
+cc = "1"
+
+[dev-dependencies]
+tree-sitter = "0.26"

@@ -1,0 +1,136 @@
+==================
+If / else if / else
+==================
+
+default {
+    state_entry() {
+        integer n = 5;
+        if (n < 0) {
+            llSay(0, "negative");
+        } else if (n == 0) {
+            llSay(0, "zero");
+        } else {
+            llSay(0, "positive");
+        }
+    }
+}
+
+---
+
+(source_file
+  (default_state
+    (event_handler
+      name: (identifier)
+      body: (block
+        (variable_declaration
+          type: (type)
+          name: (identifier)
+          value: (integer_literal))
+        (if_statement
+          condition: (binary_expression
+            left: (identifier)
+            right: (integer_literal))
+          consequence: (block
+            (expression_statement
+              (call_expression
+                function: (identifier)
+                (argument_list
+                  (integer_literal)
+                  (string_literal)))))
+          alternative: (if_statement
+            condition: (binary_expression
+              left: (identifier)
+              right: (integer_literal))
+            consequence: (block
+              (expression_statement
+                (call_expression
+                  function: (identifier)
+                  (argument_list
+                    (integer_literal)
+                    (string_literal)))))
+            alternative: (block
+              (expression_statement
+                (call_expression
+                  function: (identifier)
+                  (argument_list
+                    (integer_literal)
+                    (string_literal)))))))))))
+
+==================
+While loop
+==================
+
+default {
+    state_entry() {
+        integer i = 0;
+        while (i < 10) {
+            i = i + 1;
+        }
+    }
+}
+
+---
+
+(source_file
+  (default_state
+    (event_handler
+      name: (identifier)
+      body: (block
+        (variable_declaration
+          type: (type)
+          name: (identifier)
+          value: (integer_literal))
+        (while_statement
+          condition: (binary_expression
+            left: (identifier)
+            right: (integer_literal))
+          body: (block
+            (expression_statement
+              (assignment_expression
+                left: (identifier)
+                right: (binary_expression
+                  left: (identifier)
+                  right: (integer_literal))))))))))
+
+==================
+For loop with jump label
+==================
+
+default {
+    state_entry() {
+        integer i;
+        for (i = 0; i < 5; ++i) {
+            if (i == 3) jump done;
+        }
+        @done;
+    }
+}
+
+---
+
+(source_file
+  (default_state
+    (event_handler
+      name: (identifier)
+      body: (block
+        (variable_declaration
+          type: (type)
+          name: (identifier))
+        (for_statement
+          init: (assignment_expression
+            left: (identifier)
+            right: (integer_literal))
+          condition: (binary_expression
+            left: (identifier)
+            right: (integer_literal))
+          update: (update_expression
+            argument: (identifier))
+          body: (block
+            (if_statement
+              condition: (binary_expression
+                left: (identifier)
+                right: (integer_literal))
+              consequence: (jump_statement
+                label: (identifier)))))
+        (label_statement
+          name: (identifier))))))

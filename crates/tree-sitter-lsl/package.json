@@ -1,0 +1,15 @@
+{
+  "name": "tree-sitter-lsl",
+  "version": "0.1.0",
+  "description": "LSL (Linden Scripting Language) grammar for tree-sitter",
+  "main": "bindings/node",
+  "keywords": ["parser", "lexer", "tree-sitter", "lsl", "linden", "second-life"],
+  "author": "Amalthea Skydancer",
+  "license": "MIT OR Apache-2.0",
+  "tree-sitter": [
+    {
+      "scope": "source.lsl",
+      "file-types": ["lsl"]
+    }
+  ]
+}
