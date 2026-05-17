@@ -15,6 +15,7 @@ members = [
     "crates/bscc-lang-lsl",
     "crates/bscc-lang-hcl",
     "crates/bscc-git",
+    "crates/bscc-cost",
     "crates/bscc-lsp",
     "crates/bscc-export",
     "crates/bscc-cli",

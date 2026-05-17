@@ -28,6 +28,7 @@ bscc-lang-lsl = { path = "../bscc-lang-lsl" }
 bscc-lang-hcl = { path = "../bscc-lang-hcl" }
 bscc-export = { path = "../bscc-export" }
 bscc-git = { path = "../bscc-git" }
+bscc-cost = { path = "../bscc-cost" }
 bscc-lsp = { path = "../bscc-lsp" }
 clap.workspace = true
 anyhow.workspace = true

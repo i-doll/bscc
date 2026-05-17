@@ -18,6 +18,11 @@ Beyond LOC counting, `bscc` produces:
   longest function, todo comments, imports — via tree-sitter
 - **Git hotspots** — per-file churn, authors, last-modified, and a
   `complexity × ln(1 + changes)` hotspot score
+- **Cost estimation** — basic COCOMO baseline plus an AI-assisted
+  variant that applies a static productivity multiplier (default 2×,
+  anchored on the Peng et al. 2023 Copilot RCT). Per-language and
+  project-total numbers; tune via `--avg-wage` / `--overhead` /
+  `--project-type` / `--ai-multiplier`, suppress with `--no-cost`
 - **Exporters** — colored table, JSON (versioned schema), CSV, SARIF
   (for CI), self-contained HTML
 - **LSP server** (`bscc lsp` / `bscc-lsp`) — diagnostics and code lenses
@@ -40,6 +45,7 @@ Without mise: `rust-toolchain.toml` pins the same Rust version for `rustup`.
 
 ```
 bscc count    [paths…]   [--format table|json|csv|sarif|html] [--no-gitignore] [--hidden]
+              [--no-cost] [--avg-wage N] [--overhead F] [--project-type T] [--ai-multiplier F]
 bscc hotspots [paths…]   [--top N] [--window-days N]
 bscc explain  <file>      per-function breakdown (tree-sitter tier only)
 bscc languages            list registered languages and which tier they use

@@ -23,6 +23,21 @@ pub struct CountArgs {
     /// Worker threads. 0 = auto.
     #[arg(short = 'j', long, default_value_t = 0)]
     pub threads: usize,
+    /// Suppress the COCOMO cost footer + Cost column.
+    #[arg(long)]
+    pub no_cost: bool,
+    /// Override the COCOMO average annual wage (default 56286).
+    #[arg(long)]
+    pub avg_wage: Option<u32>,
+    /// Override the COCOMO overhead multiplier (default 2.4).
+    #[arg(long)]
+    pub overhead: Option<f64>,
+    /// COCOMO project type: organic | `semi_detached` | embedded.
+    #[arg(long)]
+    pub project_type: Option<String>,
+    /// AI productivity multiplier (default 2.0; >1 = faster than baseline).
+    #[arg(long)]
+    pub ai_multiplier: Option<f64>,
 }
 
 pub fn run(registry: &Registry, args: CountArgs, cfg: &crate::config::Config) -> Result<()> {
@@ -39,7 +54,25 @@ pub fn run(registry: &Registry, args: CountArgs, cfg: &crate::config::Config) ->
         skip_hidden: args.skip_hidden,
     };
 
-    let report = walk(&roots, registry, &opts);
+    let mut report = walk(&roots, registry, &opts);
+
+    let cost_enabled = !args.no_cost && cfg.cost.enable;
+    if cost_enabled {
+        let project_type_str = args
+            .project_type
+            .as_deref()
+            .unwrap_or(&cfg.cost.project_type);
+        let project_type: bscc_cost::ProjectType = project_type_str
+            .parse()
+            .map_err(|e: String| anyhow::anyhow!(e))?;
+        let params = bscc_cost::CostParams {
+            avg_wage: args.avg_wage.unwrap_or(cfg.cost.avg_wage),
+            overhead: args.overhead.unwrap_or(cfg.cost.overhead),
+            project_type,
+            ai_multiplier: args.ai_multiplier.unwrap_or(cfg.cost.ai_multiplier),
+        };
+        report.cost = Some(bscc_cost::estimate(&report, &params));
+    }
 
     let stdout = io::stdout();
     let mut sink = stdout.lock();

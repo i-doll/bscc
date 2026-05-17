@@ -2,6 +2,7 @@
 //! two-tier dispatch (regex tier vs tree-sitter tier), and aggregation
 //! into a `Report` that exporters consume.
 
+pub mod cost;
 pub mod detect;
 pub mod exporter;
 pub mod metrics;
@@ -9,6 +10,7 @@ pub mod registry;
 pub mod report;
 pub mod walk;
 
+pub use cost::{CostParamsSnapshot, CostReport, Estimate, ProjectEstimate};
 pub use exporter::Exporter;
 pub use metrics::{FileMetrics, FunctionDetail, GitMetrics};
 pub use registry::{Analyzer, LanguageEntry, Registry, Tier};

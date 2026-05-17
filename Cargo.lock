@@ -145,6 +145,7 @@ version = "0.0.1"
 dependencies = [
  "anyhow",
  "bscc-core",
+ "bscc-cost",
  "bscc-export",
  "bscc-git",
  "bscc-lang-c",
@@ -176,6 +177,13 @@ dependencies = [
  "serde",
  "serde_json",
  "thiserror",
+]
+
+[[package]]
+name = "bscc-cost"
+version = "0.0.1"
+dependencies = [
+ "bscc-core",
 ]
 
 [[package]]

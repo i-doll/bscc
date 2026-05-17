@@ -1,10 +1,15 @@
-use crate::FileMetrics;
+use crate::{CostReport, FileMetrics};
 use serde::Serialize;
 use std::collections::BTreeMap;
 
 #[derive(Debug, Clone, Default, Serialize)]
 pub struct Report {
     pub files: Vec<FileMetrics>,
+    /// Project-wide cost estimate, populated post-walk by `bscc-cost`
+    /// when enabled. `None` for plain `bscc count --no-cost` and for
+    /// programmatic callers that skip the cost step.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub cost: Option<CostReport>,
 }
 
 #[derive(Debug, Clone, Default, Serialize)]

@@ -33,6 +33,16 @@ pub fn fmt_int(n: u32) -> String {
     }
 }
 
+/// USD currency formatting: locale-aware grouping with a leading `$`.
+/// E.g. `1_234_567` -> `"$1,234,567"` under `en_US`.
+pub fn fmt_usd(n: u64) -> String {
+    let body = match formatter() {
+        Formatter::System(loc) => n.to_formatted_string(loc.as_ref()),
+        Formatter::Fallback(loc) => n.to_formatted_string(loc),
+    };
+    format!("${body}")
+}
+
 /// `fmt_int` variant that takes any `num_format::Format`. Useful for tests
 /// that need deterministic output regardless of `LC_NUMERIC`.
 pub fn fmt_int_with<F: num_format::Format>(n: u32, loc: &F) -> String {
