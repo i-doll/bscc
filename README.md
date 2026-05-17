@@ -165,8 +165,7 @@ breadth doesn't suffer when grammars aren't available.
 
 ## Status
 
-v1 implemented across milestones M1–M5 (see
-[`docs/superpowers/specs/2026-05-17-bscc-design.md`]).
+v1 implemented across milestones M1–M5.
 
 Known limitations:
 
@@ -182,5 +181,4 @@ Known limitations:
 [scc-langs]: https://github.com/boyter/scc/blob/master/languages.json
 [mise]: https://mise.jdx.dev/
 [`crates/bscc-regex-tier/data/languages.toml`]: crates/bscc-regex-tier/data/languages.toml
-[`docs/superpowers/specs/2026-05-17-bscc-design.md`]: docs/superpowers/specs/2026-05-17-bscc-design.md
 [Linden Scripting Language]: https://wiki.secondlife.com/wiki/LSL_Portal
