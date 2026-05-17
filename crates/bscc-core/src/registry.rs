@@ -41,14 +41,21 @@ impl Registry {
         Self::default()
     }
 
+    /// Registers a language entry. If a language with the same name was
+    /// already registered, the new entry replaces it — this is how a
+    /// tree-sitter language plugin overrides a regex-tier fallback.
     pub fn register(&mut self, entry: LanguageEntry) {
         let entry = Arc::new(entry);
+        if let Some(pos) = self.entries.iter().position(|e| e.name == entry.name) {
+            self.entries[pos] = Arc::clone(&entry);
+        } else {
+            self.entries.push(Arc::clone(&entry));
+        }
         self.by_name.insert(entry.name.clone(), Arc::clone(&entry));
         for ext in &entry.extensions {
             self.by_ext
                 .insert(ext.to_ascii_lowercase(), Arc::clone(&entry));
         }
-        self.entries.push(entry);
     }
 
     pub fn lookup_by_name(&self, name: &str) -> Option<&LanguageEntry> {

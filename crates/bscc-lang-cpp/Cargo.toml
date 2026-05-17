@@ -1,0 +1,17 @@
+[package]
+name = "bscc-lang-cpp"
+edition.workspace = true
+rust-version.workspace = true
+version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+bscc-core = { path = "../bscc-core" }
+bscc-ast-tier = { path = "../bscc-ast-tier" }
+tree-sitter.workspace = true
+tree-sitter-cpp.workspace = true

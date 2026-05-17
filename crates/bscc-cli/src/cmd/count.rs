@@ -1,6 +1,6 @@
 use anyhow::Result;
 use bscc_core::{Exporter, Registry, WalkOptions, walk};
-use bscc_export::{JsonExporter, TableExporter};
+use bscc_export::{CsvExporter, JsonExporter, SarifExporter, TableExporter};
 use clap::Args;
 use std::io::{self, Write};
 use std::path::PathBuf;
@@ -44,7 +44,9 @@ pub fn run(registry: &Registry, args: CountArgs) -> Result<()> {
     match args.format.as_str() {
         "table" => TableExporter.write(&report, &mut sink)?,
         "json" => JsonExporter { pretty: true }.write(&report, &mut sink)?,
-        other => anyhow::bail!("unknown format {other:?}; supported: table, json"),
+        "csv" => CsvExporter.write(&report, &mut sink)?,
+        "sarif" => SarifExporter::default().write(&report, &mut sink)?,
+        other => anyhow::bail!("unknown format {other:?}; supported: table, json, csv, sarif"),
     }
     sink.flush()?;
     Ok(())

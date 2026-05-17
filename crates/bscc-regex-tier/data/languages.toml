@@ -1,5 +1,13 @@
-# Regex-tier languages for bscc M1. Tree-sitter-enabled languages will move
-# out of this file as their per-language crates land in M2/M3.
+# Regex-tier languages for bscc. Entries here serve as the fallback for any
+# language not covered by a tree-sitter `bscc-lang-*` crate. When such a crate
+# is also registered, its entry replaces the one defined here.
+#
+# Known limitation: the tokenizer does NOT support nested block comments, so
+# languages like Haskell or OCaml may slightly miscount in deeply nested
+# comment cases. This is acceptable for v0.1; tree-sitter crates for those
+# languages would fix it.
+
+# ────────── Systems / compiled ──────────
 
 [[language]]
 name = "Rust"
@@ -9,43 +17,11 @@ block_comments = [["/*", "*/"]]
 strings = [["\"", "\""]]
 
 [[language]]
-name = "Python"
-extensions = ["py", "pyi"]
-line_comments = ["#"]
-strings = [
-    ["\"\"\"", "\"\"\""],
-    ["'''", "'''"],
-    ["\"", "\""],
-    ["'", "'"],
-]
-
-[[language]]
-name = "JavaScript"
-extensions = ["js", "mjs", "cjs"]
-line_comments = ["//"]
-block_comments = [["/*", "*/"]]
-strings = [["\"", "\""], ["'", "'"], ["`", "`"]]
-
-[[language]]
-name = "TypeScript"
-extensions = ["ts", "tsx"]
-line_comments = ["//"]
-block_comments = [["/*", "*/"]]
-strings = [["\"", "\""], ["'", "'"], ["`", "`"]]
-
-[[language]]
 name = "Go"
 extensions = ["go"]
 line_comments = ["//"]
 block_comments = [["/*", "*/"]]
 strings = [["\"", "\""], ["`", "`"]]
-
-[[language]]
-name = "Java"
-extensions = ["java"]
-line_comments = ["//"]
-block_comments = [["/*", "*/"]]
-strings = [["\"", "\""], ["'", "'"]]
 
 [[language]]
 name = "C"
@@ -62,10 +38,429 @@ block_comments = [["/*", "*/"]]
 strings = [["\"", "\""], ["'", "'"]]
 
 [[language]]
-name = "Shell"
-extensions = ["sh", "bash", "zsh"]
+name = "C#"
+extensions = ["cs"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""], ["'", "'"]]
+
+[[language]]
+name = "Objective-C"
+extensions = ["m", "mm"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Swift"
+extensions = ["swift"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"\"\"", "\"\"\""], ["\"", "\""]]
+
+[[language]]
+name = "Kotlin"
+extensions = ["kt", "kts"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"\"\"", "\"\"\""], ["\"", "\""], ["'", "'"]]
+
+[[language]]
+name = "Scala"
+extensions = ["scala", "sc"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"\"\"", "\"\"\""], ["\"", "\""], ["'", "'"]]
+
+[[language]]
+name = "Java"
+extensions = ["java"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""], ["'", "'"]]
+
+[[language]]
+name = "Groovy"
+extensions = ["groovy", "gradle"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"\"\"", "\"\"\""], ["'''", "'''"], ["\"", "\""], ["'", "'"]]
+
+[[language]]
+name = "D"
+extensions = ["d"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""], ["`", "`"]]
+
+[[language]]
+name = "Zig"
+extensions = ["zig"]
+line_comments = ["//"]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Nim"
+extensions = ["nim", "nims"]
+line_comments = ["#"]
+block_comments = [["#[", "]#"]]
+strings = [["\"\"\"", "\"\"\""], ["\"", "\""], ["'", "'"]]
+
+[[language]]
+name = "Crystal"
+extensions = ["cr"]
 line_comments = ["#"]
 strings = [["\"", "\""], ["'", "'"]]
+
+[[language]]
+name = "V"
+extensions = ["v"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""], ["'", "'"]]
+
+# ────────── Scripting / dynamic ──────────
+
+[[language]]
+name = "Python"
+extensions = ["py", "pyi"]
+line_comments = ["#"]
+strings = [
+    ["\"\"\"", "\"\"\""],
+    ["'''", "'''"],
+    ["\"", "\""],
+    ["'", "'"],
+]
+
+[[language]]
+name = "Ruby"
+extensions = ["rb", "rake"]
+line_comments = ["#"]
+block_comments = [["=begin", "=end"]]
+strings = [["\"", "\""], ["'", "'"]]
+
+[[language]]
+name = "Perl"
+extensions = ["pl", "pm", "t"]
+line_comments = ["#"]
+strings = [["\"", "\""], ["'", "'"]]
+
+[[language]]
+name = "PHP"
+extensions = ["php", "phtml"]
+line_comments = ["//", "#"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""], ["'", "'"]]
+
+[[language]]
+name = "JavaScript"
+extensions = ["js", "mjs", "cjs"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""], ["'", "'"], ["`", "`"]]
+
+[[language]]
+name = "TypeScript"
+extensions = ["ts", "tsx"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""], ["'", "'"], ["`", "`"]]
+
+[[language]]
+name = "CoffeeScript"
+extensions = ["coffee"]
+line_comments = ["#"]
+block_comments = [["###", "###"]]
+strings = [["\"", "\""], ["'", "'"]]
+
+[[language]]
+name = "Dart"
+extensions = ["dart"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"\"\"", "\"\"\""], ["'''", "'''"], ["\"", "\""], ["'", "'"]]
+
+[[language]]
+name = "Lua"
+extensions = ["lua"]
+line_comments = ["--"]
+block_comments = [["--[[", "]]"]]
+strings = [["\"", "\""], ["'", "'"]]
+
+[[language]]
+name = "R"
+extensions = ["r", "R", "Rmd"]
+line_comments = ["#"]
+strings = [["\"", "\""], ["'", "'"]]
+
+[[language]]
+name = "Julia"
+extensions = ["jl"]
+line_comments = ["#"]
+block_comments = [["#=", "=#"]]
+strings = [["\"\"\"", "\"\"\""], ["\"", "\""]]
+
+[[language]]
+name = "Tcl"
+extensions = ["tcl"]
+line_comments = ["#"]
+strings = [["\"", "\""]]
+
+# ────────── Functional ──────────
+
+[[language]]
+name = "Haskell"
+extensions = ["hs", "lhs"]
+line_comments = ["--"]
+block_comments = [["{-", "-}"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "OCaml"
+extensions = ["ml", "mli"]
+block_comments = [["(*", "*)"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "F#"
+extensions = ["fs", "fsi", "fsx"]
+line_comments = ["//"]
+block_comments = [["(*", "*)"]]
+strings = [["\"\"\"", "\"\"\""], ["\"", "\""]]
+
+[[language]]
+name = "Elixir"
+extensions = ["ex", "exs"]
+line_comments = ["#"]
+strings = [["\"\"\"", "\"\"\""], ["\"", "\""]]
+
+[[language]]
+name = "Erlang"
+extensions = ["erl", "hrl"]
+line_comments = ["%"]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Clojure"
+extensions = ["clj", "cljs", "cljc", "edn"]
+line_comments = [";", ";;"]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Scheme"
+extensions = ["scm", "ss"]
+line_comments = [";"]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Common Lisp"
+extensions = ["lisp", "lsp", "cl"]
+line_comments = [";", ";;"]
+block_comments = [["#|", "|#"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Racket"
+extensions = ["rkt"]
+line_comments = [";"]
+strings = [["\"", "\""]]
+
+# ────────── Shell-family ──────────
+
+[[language]]
+name = "Shell"
+extensions = ["sh", "bash", "zsh", "ksh"]
+line_comments = ["#"]
+strings = [["\"", "\""], ["'", "'"]]
+
+[[language]]
+name = "Fish"
+extensions = ["fish"]
+line_comments = ["#"]
+strings = [["\"", "\""], ["'", "'"]]
+
+[[language]]
+name = "PowerShell"
+extensions = ["ps1", "psm1", "psd1"]
+line_comments = ["#"]
+block_comments = [["<#", "#>"]]
+strings = [["\"", "\""], ["'", "'"]]
+
+# ────────── Markup / data ──────────
+
+[[language]]
+name = "HTML"
+extensions = ["html", "htm"]
+block_comments = [["<!--", "-->"]]
+strings = [["\"", "\""], ["'", "'"]]
+
+[[language]]
+name = "XML"
+extensions = ["xml", "svg", "xhtml"]
+block_comments = [["<!--", "-->"]]
+strings = [["\"", "\""], ["'", "'"]]
+
+[[language]]
+name = "CSS"
+extensions = ["css"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""], ["'", "'"]]
+
+[[language]]
+name = "SCSS"
+extensions = ["scss"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""], ["'", "'"]]
+
+[[language]]
+name = "Sass"
+extensions = ["sass"]
+line_comments = ["//"]
+strings = [["\"", "\""], ["'", "'"]]
+
+[[language]]
+name = "Less"
+extensions = ["less"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""], ["'", "'"]]
+
+[[language]]
+name = "JSON"
+extensions = ["json"]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "JSONC"
+extensions = ["jsonc"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "YAML"
+extensions = ["yaml", "yml"]
+line_comments = ["#"]
+strings = [["\"", "\""], ["'", "'"]]
+
+[[language]]
+name = "TOML"
+extensions = ["toml"]
+line_comments = ["#"]
+strings = [["\"\"\"", "\"\"\""], ["'''", "'''"], ["\"", "\""], ["'", "'"]]
+
+[[language]]
+name = "INI"
+extensions = ["ini", "cfg", "conf"]
+line_comments = [";", "#"]
+strings = [["\"", "\""], ["'", "'"]]
+
+[[language]]
+name = "Markdown"
+extensions = ["md", "markdown"]
+block_comments = [["<!--", "-->"]]
+strings = []
+
+[[language]]
+name = "reStructuredText"
+extensions = ["rst"]
+strings = []
+
+[[language]]
+name = "AsciiDoc"
+extensions = ["adoc", "asciidoc"]
+line_comments = ["//"]
+strings = []
+
+# ────────── Data / DSLs ──────────
+
+[[language]]
+name = "SQL"
+extensions = ["sql"]
+line_comments = ["--"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""], ["'", "'"]]
+
+[[language]]
+name = "GraphQL"
+extensions = ["graphql", "gql"]
+line_comments = ["#"]
+strings = [["\"\"\"", "\"\"\""], ["\"", "\""]]
+
+[[language]]
+name = "HCL"
+extensions = ["hcl", "tf", "tfvars"]
+line_comments = ["#", "//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Protobuf"
+extensions = ["proto"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""], ["'", "'"]]
+
+[[language]]
+name = "Thrift"
+extensions = ["thrift"]
+line_comments = ["//", "#"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""], ["'", "'"]]
+
+[[language]]
+name = "Solidity"
+extensions = ["sol"]
+line_comments = ["//"]
+block_comments = [["/*", "*/"]]
+strings = [["\"", "\""], ["'", "'"]]
+
+# ────────── Build / infra ──────────
+
+[[language]]
+name = "Dockerfile"
+extensions = ["dockerfile"]
+line_comments = ["#"]
+strings = [["\"", "\""], ["'", "'"]]
+
+[[language]]
+name = "Makefile"
+extensions = ["mk"]
+line_comments = ["#"]
+strings = [["\"", "\""], ["'", "'"]]
+
+[[language]]
+name = "CMake"
+extensions = ["cmake"]
+line_comments = ["#"]
+strings = [["\"", "\""]]
+
+[[language]]
+name = "Bazel"
+extensions = ["bazel", "bzl"]
+line_comments = ["#"]
+strings = [["\"\"\"", "\"\"\""], ["'''", "'''"], ["\"", "\""], ["'", "'"]]
+
+[[language]]
+name = "Just"
+extensions = ["justfile"]
+line_comments = ["#"]
+strings = [["\"", "\""], ["'", "'"]]
+
+# ────────── Other ──────────
+
+[[language]]
+name = "Vim Script"
+extensions = ["vim"]
+line_comments = ["\""]
+strings = [["'", "'"]]
+
+[[language]]
+name = "Emacs Lisp"
+extensions = ["el"]
+line_comments = [";"]
+strings = [["\"", "\""]]
 
 [[language]]
 name = "LSL"

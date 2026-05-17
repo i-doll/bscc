@@ -33,5 +33,11 @@ fn build_registry() -> bscc_core::Registry {
     // override the regex-tier entry for their extensions.
     bscc_regex_tier::register(&mut r);
     bscc_lang_rust::register(&mut r);
+    bscc_lang_python::register(&mut r);
+    bscc_lang_typescript::register(&mut r);
+    bscc_lang_go::register(&mut r);
+    bscc_lang_c::register(&mut r);
+    bscc_lang_cpp::register(&mut r);
+    bscc_lang_java::register(&mut r);
     r
 }

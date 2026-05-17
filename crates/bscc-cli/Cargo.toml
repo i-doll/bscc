@@ -18,6 +18,12 @@ path = "src/main.rs"
 bscc-core = { path = "../bscc-core" }
 bscc-regex-tier = { path = "../bscc-regex-tier" }
 bscc-lang-rust = { path = "../bscc-lang-rust" }
+bscc-lang-python = { path = "../bscc-lang-python" }
+bscc-lang-typescript = { path = "../bscc-lang-typescript" }
+bscc-lang-go = { path = "../bscc-lang-go" }
+bscc-lang-c = { path = "../bscc-lang-c" }
+bscc-lang-cpp = { path = "../bscc-lang-cpp" }
+bscc-lang-java = { path = "../bscc-lang-java" }
 bscc-export = { path = "../bscc-export" }
 clap.workspace = true
 anyhow.workspace = true
